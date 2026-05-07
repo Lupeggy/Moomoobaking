@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>MooMoo Baking｜會員中心</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#fbf5ec;--paper:#fffdf8;--cream:#f3e4d2;
+  --ink:#24150e;--muted:#816455;--rose:#c95d73;--rose-soft:#f5d9df;
+  --gold:#b88a4a;--line:#e7d7c7;--green:#32794b;
+  --shadow:0 18px 50px rgba(36,21,14,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{font-family:"Noto Sans TC",sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;}
+a{text-decoration:none;color:inherit;}
+button,input{font-family:inherit;}
+
+/* ── NAV ── */
+.nav{position:sticky;top:0;z-index:100;height:68px;padding:0 28px;background:rgba(251,245,236,.94);backdrop-filter:blur(20px);border-bottom:1px solid rgba(36,21,14,.07);display:flex;align-items:center;justify-content:space-between;}
+.nav-brand{display:flex;align-items:center;gap:10px;}
+.nav-brand-mark{width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-family:"Playfair Display",serif;font-weight:900;font-size:15px;}
+.nav-brand-name{font-family:"Playfair Display",serif;font-size:20px;font-weight:900;}
+.nav-brand-name span{color:var(--rose);}
+.nav-links{display:flex;gap:4px;}
+.nav-link{font-size:13px;font-weight:700;color:var(--muted);padding:6px 10px;border-radius:999px;transition:background .14s;}
+.nav-link:hover{background:var(--cream);color:var(--ink);}
+.nav-shop-btn{background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-size:13px;font-weight:700;}
+@media(max-width:640px){.nav-links{display:none;}.nav{padding:0 16px;}}
+
+/* ── MAIN ── */
+main{flex:1;display:flex;align-items:flex-start;justify-content:center;padding:40px 20px 60px;}
+.page{width:100%;max-width:460px;}
+
+/* ── AUTH CARD ── */
+.auth-card{background:var(--paper);border:1px solid var(--line);border-radius:32px;box-shadow:var(--shadow);overflow:hidden;}
+.auth-top{background:linear-gradient(135deg,#2a1810,#5b3827);padding:36px 32px 28px;text-align:center;}
+.auth-logo-ring{width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-family:"Playfair Display",serif;font-size:24px;font-weight:900;color:#fff;}
+.auth-headline{font-family:"Playfair Display",serif;font-size:24px;font-weight:900;color:#fff;margin-bottom:6px;}
+.auth-subline{font-size:13px;color:rgba(255,255,255,.58);line-height:1.6;}
+
+/* Tabs */
+.auth-tabs{display:flex;border-bottom:1px solid var(--line);}
+.auth-tab{flex:1;padding:14px 0;text-align:center;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;background:#fff;transition:all .14s;}
+.auth-tab.active{color:var(--rose);border-bottom-color:var(--rose);}
+
+/* Form */
+.auth-body{padding:28px 28px 24px;}
+.field{margin-bottom:15px;}
+.label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px;letter-spacing:.02em;}
+.input-wrap{position:relative;}
+.input-wrap svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--muted);}
+.input{width:100%;border:1.5px solid var(--line);border-radius:14px;padding:12px 13px 12px 38px;font-size:14px;color:var(--ink);background:#fff;outline:none;transition:border-color .14s;}
+.input.no-icon{padding-left:13px;}
+.input:focus{border-color:var(--rose);}
+.forgot-link{font-size:12px;color:var(--rose);font-weight:700;cursor:pointer;display:block;text-align:right;margin-top:6px;}
+
+/* Social buttons */
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0;font-size:12px;color:var(--muted);}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--line);}
+.social-row{display:flex;gap:10px;margin-bottom:8px;}
+.social-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;border:1.5px solid var(--line);border-radius:14px;font-size:13px;font-weight:700;background:#fff;color:var(--ink);cursor:pointer;transition:background .14s;}
+.social-btn:hover{background:var(--cream);}
+.social-note{font-size:11px;color:var(--muted);text-align:center;line-height:1.6;margin-bottom:16px;}
+.social-note a{color:var(--rose);}
+
+/* Submit */
+.submit-btn{width:100%;min-height:50px;border:0;border-radius:999px;background:var(--ink);color:#fff;font-size:14px;font-weight:900;cursor:pointer;transition:opacity .14s;}
+.submit-btn:hover{opacity:.85;}
+.terms{font-size:11px;color:var(--muted);text-align:center;margin-top:14px;line-height:1.6;}
+.terms a{color:var(--rose);}
+
+/* Upgrade hint (shown on register complete) */
+.upgrade-hint{background:var(--cream);border-radius:14px;padding:14px 16px;margin-top:14px;font-size:12px;color:var(--muted);line-height:1.7;text-align:center;}
+.upgrade-hint strong{color:var(--ink);}
+.upgrade-hint a{color:var(--rose);font-weight:700;}
+
+/* ── DASHBOARD ── */
+.dashboard{display:none;}
+.dashboard.on{display:block;}
+
+.member-hero{background:linear-gradient(135deg,#2a1810,#5b3827);border-radius:26px;padding:26px 22px;color:#fff;display:flex;align-items:center;gap:16px;margin-bottom:18px;}
+.member-av{width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.14);border:2px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+.member-name{font-family:"Playfair Display",serif;font-size:20px;font-weight:900;color:#fff;margin-bottom:4px;}
+.member-tier-pill{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.12);border-radius:999px;padding:4px 10px;font-size:11px;font-weight:700;color:rgba(255,255,255,.85);}
+.member-tier-pill.vip{background:linear-gradient(90deg,#b88a4a,#d4aa70);}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:14px;text-align:center;box-shadow:0 6px 20px rgba(36,21,14,.06);}
+.stat-num{font-family:"Playfair Display",serif;font-size:26px;font-weight:900;color:var(--rose);display:block;}
+.stat-lbl{font-size:11px;color:var(--muted);margin-top:3px;font-weight:700;}
+
+.card{background:var(--paper);border:1px solid var(--line);border-radius:22px;margin-bottom:14px;overflow:hidden;box-shadow:0 6px 20px rgba(36,21,14,.06);}
+.card-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--line);}
+.card-title{font-size:14px;font-weight:900;}
+.card-action{font-size:12px;color:var(--rose);font-weight:700;cursor:pointer;}
+
+/* Orders */
+.order-row{display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid var(--line);}
+.order-row:last-child{border-bottom:none;}
+.order-emoji{width:44px;height:44px;border-radius:12px;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.order-info{flex:1;min-width:0;}
+.order-name{font-size:13px;font-weight:800;margin-bottom:2px;}
+.order-meta{font-size:11px;color:var(--muted);}
+.status{font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;white-space:nowrap;}
+.s-making{background:#E8F4EC;color:var(--green);}
+.s-done{background:var(--cream);color:var(--muted);}
+.s-confirming{background:#FFF3E0;color:#BF5000;}
+
+/* Membership upgrade card */
+.upgrade-card{padding:18px;}
+.upgrade-plans{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.plan-box{border:1.5px solid var(--line);border-radius:16px;padding:14px;cursor:pointer;transition:border-color .15s,background .15s;}
+.plan-box:hover,.plan-box.highlight{border-color:var(--rose);background:var(--rose-soft);}
+.plan-box-tag{font-size:11px;font-weight:700;color:var(--muted);margin-bottom:4px;}
+.plan-box-name{font-size:13px;font-weight:900;margin-bottom:3px;}
+.plan-box-price{font-family:"Playfair Display",serif;font-size:18px;font-weight:700;color:var(--rose);}
+.plan-box-perk{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4;}
+.upgrade-btn{width:100%;min-height:44px;border:0;border-radius:999px;background:linear-gradient(135deg,#b88a4a,#d4aa70);color:#fff;font-size:13px;font-weight:900;cursor:pointer;}
+
+/* Settings */
+.setting-row{display:flex;align-items:center;justify-content:space-between;padding:13px 18px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .13s;}
+.setting-row:last-child{border-bottom:none;}
+.setting-row:hover{background:var(--cream);}
+.setting-left{display:flex;align-items:center;gap:12px;}
+.setting-icon{width:34px;height:34px;border-radius:10px;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.setting-label{font-size:13px;font-weight:700;}
+.setting-sub{font-size:11px;color:var(--muted);margin-top:1px;}
+.setting-arrow{color:var(--muted);}
+
+.logout-btn{width:100%;min-height:46px;border:1.5px solid var(--line);border-radius:999px;background:#fff;color:var(--muted);font-size:14px;font-weight:700;cursor:pointer;margin-top:8px;transition:all .14s;}
+.logout-btn:hover{border-color:#c00;color:#c00;}
+
+/* ── FOOTER ── */
+footer{background:#24150e;color:rgba(255,255,255,.65);padding:48px 28px 32px;}
+.footer-inner{max-width:1120px;margin:auto;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;}
+.footer-brand{font-family:"Playfair Display",serif;font-size:20px;font-weight:900;color:#fff;margin-bottom:8px;}
+.footer-brand span{color:#f7d6dd;}
+.footer-tagline{font-size:13px;line-height:1.8;color:rgba(255,255,255,.48);margin-bottom:16px;}
+.footer-social{display:flex;gap:10px;}
+.footer-soc{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:14px;}
+.footer-col-title{font-size:11px;font-weight:900;letter-spacing:.1em;color:rgba(255,255,255,.32);margin-bottom:12px;text-transform:uppercase;}
+.footer-col-link{display:block;font-size:13px;font-weight:600;color:rgba(255,255,255,.55);margin-bottom:8px;}
+.footer-col-link:hover{color:#fff;}
+.footer-bottom{max-width:1120px;margin:28px auto 0;padding-top:18px;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.3);}
+@media(max-width:640px){.footer-inner{grid-template-columns:1fr 1fr;gap:24px;}.footer-bottom{flex-direction:column;gap:5px;text-align:center;}}
+@media(max-width:400px){.footer-inner{grid-template-columns:1fr;}}
+
+/* Toast */
+#toast{position:fixed;top:76px;left:50%;transform:translateX(-50%) translateY(-90px);background:var(--ink);color:#fff;font-size:13px;font-weight:900;padding:11px 22px;border-radius:999px;z-index:999;transition:.28s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;pointer-events:none;}
+</style>
+</head>
+<body>
+
+<div id="toast"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-brand" href="moomoobaking-main.html">
+    <div class="nav-brand-mark">M</div>
+    <div class="nav-brand-name">Moo<span>Moo</span></div>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="moomoobaking-main.html">首頁</a>
+    <a class="nav-link" href="moomoobaking-shop.html">線上商店</a>
+    <a class="nav-link" href="moomoobaking-main.html#inquiry">快速估價</a>
+    <a class="nav-link" href="moomoobaking-main.html#flow">訂購流程</a>
+  </div>
+  <a class="nav-shop-btn" href="moomoobaking-shop.html">立即訂購</a>
+</nav>
+
+<!-- MAIN -->
+<main>
+<div class="page">
+
+  <!-- ① AUTH CARD -->
+  <div class="auth-card" id="authCard">
+    <div class="auth-top">
+      <div class="auth-logo-ring">M</div>
+      <div class="auth-headline">會員中心</div>
+      <div class="auth-subline">加入會員，享有折扣優惠與優先預訂資格</div>
+    </div>
+
+    <div class="auth-tabs">
+      <div class="auth-tab active" id="tabLogin" onclick="switchAuth('login')">登入</div>
+      <div class="auth-tab" id="tabReg" onclick="switchAuth('register')">加入會員</div>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <div class="auth-body" id="formLogin">
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="input-wrap">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <input class="input" type="email" id="loginEmail" placeholder="your@email.com"/>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">密碼</label>
+        <div class="input-wrap">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <input class="input" type="password" id="loginPwd" placeholder="你的密碼"/>
+        </div>
+        <span class="forgot-link" onclick="showForgot()">忘記密碼？</span>
+      </div>
+      <button class="submit-btn" onclick="doLogin()">登入</button>
+
+      <div class="divider">或使用社群帳號登入</div>
+      <div class="social-row">
+        <button class="social-btn" onclick="lineLogin()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#06C755"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.07 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+          LINE 登入
+        </button>
+        <button class="social-btn" onclick="googleLogin()">
+          <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          Google 登入
+        </button>
+      </div>
+      <div class="social-note">社群登入需要在 Vercel 部署後設定 OAuth。<br/>本機測試請使用 Email 登入。<a href="#" onclick="showOAuthGuide()">如何設定？</a></div>
+      <div class="terms">登入即代表同意我們的<a href="#">服務條款</a>與<a href="#">隱私政策</a></div>
+    </div>
+
+    <!-- REGISTER FORM — no tier selection, just simple signup -->
+    <div class="auth-body" id="formRegister" style="display:none;">
+      <div class="field">
+        <label class="label">姓名</label>
+        <div class="input-wrap">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <input class="input" type="text" id="regName" placeholder="你的名字"/>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="input-wrap">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <input class="input" type="email" id="regEmail" placeholder="your@email.com"/>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">LINE ID <span style="font-weight:400;color:var(--muted);">（選填，方便闆娘聯繫）</span></label>
+        <div class="input-wrap">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="#06C755"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.07 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+          <input class="input" type="text" id="regLine" placeholder="你的 LINE ID"/>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">密碼</label>
+        <div class="input-wrap">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <input class="input" type="password" id="regPwd" placeholder="至少 8 個字元"/>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">確認密碼</label>
+        <div class="input-wrap">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <input class="input" type="password" id="regPwd2" placeholder="再輸入一次"/>
+        </div>
+      </div>
+
+      <button class="submit-btn" onclick="doRegister()">建立帳號（免費）</button>
+
+      <div class="upgrade-hint">
+        ✨ 加入後可在「會員中心」升級付費方案<br/>
+        <strong>月繳 NT$299</strong>享 5% 折扣・<strong>年繳 NT$2,499</strong>享 10% 折扣 + 生日禮<br/>
+        <a href="moomoobaking-shop.html#sec-member">查看方案詳情 →</a>
+      </div>
+      <div class="terms" style="margin-top:10px;">建立帳號即代表同意<a href="#">服務條款</a>與<a href="#">隱私政策</a></div>
+    </div>
+  </div><!-- /auth-card -->
+
+  <!-- ② DASHBOARD -->
+  <div class="dashboard" id="dashboard">
+
+    <div class="member-hero">
+      <div class="member-av">🐄</div>
+      <div>
+        <div class="member-name" id="dashName">Amy</div>
+        <div class="member-tier-pill" id="dashTierPill">免費會員</div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><span class="stat-num" id="statOrders">3</span><div class="stat-lbl">累計訂單</div></div>
+      <div class="stat"><span class="stat-num" id="statDiscount">0%</span><div class="stat-lbl">會員折扣</div></div>
+      <div class="stat"><span class="stat-num" id="statPoints">0</span><div class="stat-lbl">點數</div></div>
+    </div>
+
+    <!-- Recent orders -->
+    <div class="card">
+      <div class="card-hdr"><div class="card-title">最近訂單</div><div class="card-action">查看全部</div></div>
+      <div class="order-row"><div class="order-emoji">🎂</div><div class="order-info"><div class="order-name">生日鮮奶油蛋糕</div><div class="order-meta">6吋・草莓奶油・2026/05/08</div></div><div class="status s-making">製作中</div></div>
+      <div class="order-row"><div class="order-emoji">🫧</div><div class="order-info"><div class="order-name">法式可麗露禮盒</div><div class="order-meta">12顆・原味香草・2026/04/22</div></div><div class="status s-done">已完成</div></div>
+      <div class="order-row"><div class="order-emoji">🌸</div><div class="order-info"><div class="order-name">馬卡龍禮盒</div><div class="order-meta">8顆・草莓+抹茶・2026/03/14</div></div><div class="status s-done">已完成</div></div>
+    </div>
+
+    <!-- Membership upgrade -->
+    <div class="card">
+      <div class="card-hdr"><div class="card-title">升級方案</div><div class="card-action" id="currentPlanLabel">目前：免費</div></div>
+      <div class="upgrade-card">
+        <div class="upgrade-plans">
+          <div class="plan-box highlight" onclick="selectUpgradePlan(this,'月繳','299')">
+            <div class="plan-box-tag">推薦</div>
+            <div class="plan-box-name">月繳會員</div>
+            <div class="plan-box-price">NT$299<span style="font-size:12px;font-family:'Noto Sans TC'">/月</span></div>
+            <div class="plan-box-perk">✓ 全館 5% 折扣<br/>✓ 優先預訂</div>
+          </div>
+          <div class="plan-box" onclick="selectUpgradePlan(this,'年繳VIP','2499')">
+            <div class="plan-box-tag">最划算</div>
+            <div class="plan-box-name">年繳 VIP</div>
+            <div class="plan-box-price">NT$2,499<span style="font-size:12px;font-family:'Noto Sans TC'">/年</span></div>
+            <div class="plan-box-perk">✓ 全館 10% 折扣<br/>✓ 生日禮 + VIP</div>
+          </div>
+        </div>
+        <button class="upgrade-btn" id="upgradeBtn" onclick="doUpgrade()">✨ 升級為月繳會員（透過 LINE 完成）</button>
+      </div>
+    </div>
+
+    <!-- Settings -->
+    <div class="card">
+      <div class="card-hdr"><div class="card-title">帳號設定</div></div>
+      <div class="setting-row" onclick="showToast('✏️ 個人資料編輯開發中')">
+        <div class="setting-left"><div class="setting-icon">👤</div><div><div class="setting-label">個人資料</div><div class="setting-sub">姓名・Email・LINE ID</div></div></div>
+        <span class="setting-arrow">›</span>
+      </div>
+      <div class="setting-row" onclick="showToast('🔔 通知設定開發中')">
+        <div class="setting-left"><div class="setting-icon">🔔</div><div><div class="setting-label">通知設定</div><div class="setting-sub">新品・訂單狀態通知</div></div></div>
+        <span class="setting-arrow">›</span>
+      </div>
+      <div class="setting-row" onclick="showToast('🔒 密碼修改開發中')">
+        <div class="setting-left"><div class="setting-icon">🔒</div><div><div class="setting-label">修改密碼</div></div></div>
+        <span class="setting-arrow">›</span>
+      </div>
+    </div>
+
+    <button class="logout-btn" onclick="doLogout()">登出</button>
+  </div>
+
+</div><!-- /page -->
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Moo<span>Moo</span> Baking</div>
+      <div class="footer-tagline">用心製作每一口甜點<br/>讓每個重要時刻都有一顆剛剛好的蛋糕</div>
+      <div class="footer-social">
+        <a class="footer-soc" href="https://instagram.com/moomoobaking" target="_blank">📸</a>
+        <a class="footer-soc" href="#">f</a>
+        <a class="footer-soc" href="#">L</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Shop</div>
+      <a class="footer-col-link" href="moomoobaking-shop.html">固定款蛋糕</a>
+      <a class="footer-col-link" href="moomoobaking-shop.html">客製蛋糕</a>
+      <a class="footer-col-link" href="moomoobaking-shop.html">烘焙課程</a>
+    </div>
+    <div>
+      <div class="footer-col-title">資訊</div>
+      <a class="footer-col-link" href="moomoobaking-main.html#flow">訂購流程</a>
+      <a class="footer-col-link" href="moomoobaking-main.html#inquiry">AI 估價</a>
+      <a class="footer-col-link" href="https://tally.so/r/wvgB2l" target="_blank">客製表單</a>
+    </div>
+    <div>
+      <div class="footer-col-title">聯絡</div>
+      <a class="footer-col-link" href="https://instagram.com/moomoobaking" target="_blank">Instagram</a>
+      <a class="footer-col-link" href="#">Facebook</a>
+      <a class="footer-col-link" href="#">官方 LINE</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 MooMoo Baking. All rights reserved.</span>
+    <span>手工甜點・客製蛋糕・節慶禮盒</span>
+  </div>
+</footer>
+
+<script>
+// ══════════════════════════════════
+// AUTH — localStorage demo
+// Production: replace with Supabase / Firebase Auth
+// LINE Login: use LINE Login API v2.1 (needs Channel ID from LINE Developers)
+// Google Login: use Google Identity Services (needs OAuth Client ID from GCP)
+// ══════════════════════════════════
+
+const TIER_LABELS = { free:'免費會員', month:'月繳會員 🌟', year:'年繳 VIP 👑' };
+const TIER_DISCOUNTS = { free:'0%', month:'5%', year:'10%' };
+let selectedUpgradePlan = { name:'月繳', price:'299' };
+
+function switchAuth(tab) {
+  const isLogin = tab === 'login';
+  document.getElementById('tabLogin').classList.toggle('active', isLogin);
+  document.getElementById('tabReg').classList.toggle('active', !isLogin);
+  document.getElementById('formLogin').style.display = isLogin ? 'block' : 'none';
+  document.getElementById('formRegister').style.display = isLogin ? 'none' : 'block';
+}
+
+function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pwd   = document.getElementById('loginPwd').value;
+  if (!email) { showToast('⚠️ 請輸入 Email'); return; }
+  if (!pwd)   { showToast('⚠️ 請輸入密碼'); return; }
+  const stored = JSON.parse(localStorage.getItem('mmUser') || 'null');
+  if (stored && stored.email === email && stored.pwd === pwd) {
+    loginSuccess(stored);
+  } else {
+    showToast('⚠️ Email 或密碼不正確');
+  }
+}
+
+function doRegister() {
+  const name  = document.getElementById('regName').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const line  = document.getElementById('regLine').value.trim();
+  const pwd   = document.getElementById('regPwd').value;
+  const pwd2  = document.getElementById('regPwd2').value;
+  if (!name)          { showToast('⚠️ 請輸入姓名'); return; }
+  if (!email)         { showToast('⚠️ 請輸入 Email'); return; }
+  if (pwd.length < 8) { showToast('⚠️ 密碼至少 8 個字元'); return; }
+  if (pwd !== pwd2)   { showToast('⚠️ 兩次密碼不一致'); return; }
+  // Save to localStorage (demo)
+  const user = { name, email, line, pwd, tier:'free', orders:0, points:0 };
+  localStorage.setItem('mmUser', JSON.stringify(user));
+  loginSuccess(user);
+}
+
+// LINE Login — needs LINE Login Channel
+// Steps to set up:
+// 1. Go to developers.line.biz → Create provider → Create LINE Login channel
+// 2. Set Callback URL to your Vercel domain
+// 3. Replace YOUR_LINE_CHANNEL_ID below
+function lineLogin() {
+  const LINE_CHANNEL_ID = 'YOUR_LINE_CHANNEL_ID'; // ← replace this
+  const redirectUri = encodeURIComponent(window.location.origin + '/moomoobaking-account.html');
+  const state = Math.random().toString(36).slice(2);
+  const url = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${LINE_CHANNEL_ID}&redirect_uri=${redirectUri}&state=${state}&scope=profile%20openid%20email`;
+  if (LINE_CHANNEL_ID === 'YOUR_LINE_CHANNEL_ID') {
+    showToast('⚙️ 請先在 LINE Developers 設定 Channel ID');
+    return;
+  }
+  window.location.href = url;
+}
+
+// Google Login — needs Google OAuth Client ID
+// Steps to set up:
+// 1. Go to console.cloud.google.com → APIs & Services → Credentials
+// 2. Create OAuth 2.0 Client ID → Web application
+// 3. Add your Vercel domain to Authorized origins
+// 4. Replace YOUR_GOOGLE_CLIENT_ID below
+function googleLogin() {
+  const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com'; // ← replace
+  if (GOOGLE_CLIENT_ID.startsWith('YOUR_')) {
+    showToast('⚙️ 請先在 Google Cloud Console 設定 Client ID');
+    return;
+  }
+  // Use Google Identity Services
+  google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, callback: handleGoogleResponse });
+  google.accounts.id.prompt();
+}
+
+function handleGoogleResponse(response) {
+  // In production: send response.credential (JWT) to your backend to verify
+  // For demo, just show success
+  showToast('✅ Google 登入成功（需後端驗證）');
+}
+
+function loginSuccess(user) {
+  localStorage.setItem('mmLoggedIn','1');
+  document.getElementById('authCard').style.display = 'none';
+  document.getElementById('dashboard').classList.add('on');
+  document.getElementById('dashName').textContent = user.name || '會員';
+  const pill = document.getElementById('dashTierPill');
+  pill.textContent = TIER_LABELS[user.tier] || '免費會員';
+  pill.className = 'member-tier-pill' + (user.tier==='year'?' vip':'');
+  document.getElementById('statDiscount').textContent = TIER_DISCOUNTS[user.tier]||'0%';
+  document.getElementById('statOrders').textContent = user.orders||0;
+  document.getElementById('statPoints').textContent = user.points||0;
+  document.getElementById('currentPlanLabel').textContent = '目前：' + (TIER_LABELS[user.tier]||'免費');
+  showToast('✅ 歡迎回來，' + (user.name||'會員') + '！');
+}
+
+function doLogout() {
+  localStorage.removeItem('mmLoggedIn');
+  document.getElementById('authCard').style.display = 'block';
+  document.getElementById('dashboard').classList.remove('on');
+  showToast('已登出');
+}
+
+function selectUpgradePlan(el, name, price) {
+  document.querySelectorAll('.plan-box').forEach(b=>b.classList.remove('highlight'));
+  el.classList.add('highlight');
+  selectedUpgradePlan = { name, price };
+  document.getElementById('upgradeBtn').textContent = `✨ 升級為${name}方案（透過 LINE 完成）`;
+}
+
+function doUpgrade() {
+  const msg = encodeURIComponent(`我想升級 MooMoo Baking 會員方案：${selectedUpgradePlan.name}（NT$${selectedUpgradePlan.price}），請問怎麼辦理付款？`);
+  window.open(`https://line.me/R/msg/text/?${msg}`, '_blank');
+}
+
+function showForgot() { showToast('📧 請透過 LINE 聯繫闆娘重設密碼'); }
+
+function showOAuthGuide() {
+  alert('如何設定 LINE / Google 登入：\n\n1. LINE：\n   前往 developers.line.biz\n   建立 LINE Login Channel\n   取得 Channel ID\n\n2. Google：\n   前往 console.cloud.google.com\n   建立 OAuth 2.0 Client ID\n   取得 Client ID\n\n將 ID 填入 account.html 的對應欄位即可。\n部署到 Vercel 後才能正式使用 OAuth。');
+}
+
+// Auto-login check
+window.addEventListener('load', () => {
+  if (localStorage.getItem('mmLoggedIn') === '1') {
+    const user = JSON.parse(localStorage.getItem('mmUser') || 'null');
+    if (user) loginSuccess(user);
+  }
+  // Handle URL param ?tab=register
+  if (new URLSearchParams(location.search).get('tab') === 'register') {
+    switchAuth('register');
+  }
+});
+
+let toastT;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.transform = 'translateX(-50%) translateY(0)';
+  clearTimeout(toastT);
+  toastT = setTimeout(()=>t.style.transform='translateX(-50%) translateY(-90px)', 2200);
+}
+</script>
+</body>
+</html>
