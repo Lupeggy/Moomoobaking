@@ -310,6 +310,22 @@ footer .logo span{color:#F7D7DE;}
   .product-img{height:240px;}
   .flow-grid{grid-template-columns:1fr;}
 }
+
+/* ── SHARED FOOTER ── */
+.site-footer{background:#24150e;color:rgba(255,255,255,.65);padding:56px 28px 32px;}
+.footer-inner{max-width:1120px;margin:auto;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;}
+.footer-brand{font-family:"Playfair Display",serif;font-size:22px;font-weight:900;color:#fff;margin-bottom:10px;}
+.footer-brand span{color:#f7d6dd;}
+.footer-tagline{font-size:13px;line-height:1.8;color:rgba(255,255,255,.5);margin-bottom:18px;}
+.footer-social{display:flex;gap:10px;}
+.footer-social-icon{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:14px;text-decoration:none;transition:background .14s;}
+.footer-social-icon:hover{background:rgba(255,255,255,.1);}
+.footer-col-title{font-size:11px;font-weight:900;letter-spacing:.1em;color:rgba(255,255,255,.35);margin-bottom:14px;text-transform:uppercase;}
+.footer-col-link{display:block;font-size:13px;font-weight:600;color:rgba(255,255,255,.58);margin-bottom:9px;text-decoration:none;transition:color .14s;}
+.footer-col-link:hover{color:#fff;}
+.footer-bottom{max-width:1120px;margin:32px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.32);}
+@media(max-width:860px){.footer-inner{grid-template-columns:1fr 1fr;gap:28px;}.footer-bottom{flex-direction:column;gap:6px;text-align:center;}}
+@media(max-width:520px){.footer-inner{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -317,14 +333,20 @@ footer .logo span{color:#F7D7DE;}
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
-    <a class="logo" href="#">Moo<span>Moo</span></a>
+    <a class="logo" href="moomoobaking-main.html">Moo<span>Moo</span></a>
     <div class="nav-links">
+      <a href="moomoobaking-shop.html">線上商店</a>
       <a href="#products">人氣甜點</a>
       <a href="#custom">客製蛋糕</a>
-      <a href="#inquiry">快速詢價</a>
+      <a href="#inquiry">快速估價</a>
       <a href="#flow">訂購流程</a>
     </div>
-    <a class="nav-btn" href="https://tally.so/r/wvgB2l" target="_blank">立即訂購</a>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <a href="moomoobaking-account.html" title="會員中心" style="width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7A5C4D" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <a class="nav-btn" href="moomoobaking-shop.html">立即訂購</a>
+    </div>
   </div>
 </nav>
 
@@ -487,19 +509,47 @@ footer .logo span{color:#F7D7DE;}
   </div>
 </section>
 
-<footer>
-  <div class="logo">Moo<span>Moo</span> Baking</div>
-  <p>手工甜點・客製蛋糕・節慶禮盒</p>
-  <div class="footer-links">
-    <a href="#products">人氣甜點</a><a href="#custom">客製蛋糕</a>
-    <a href="#inquiry">快速詢價</a><a href="https://tally.so/r/wvgB2l" target="_blank">訂購表單</a>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Moo<span>Moo</span> Baking</div>
+      <div class="footer-tagline">用心製作每一口甜點<br/>讓每個重要時刻都有一顆剛剛好的蛋糕</div>
+      <div class="footer-social">
+        <a class="footer-social-icon" href="https://instagram.com/moomoobaking" target="_blank">📸</a>
+        <a class="footer-social-icon" href="#">f</a>
+        <a class="footer-social-icon" href="#">L</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Shop</div>
+      <a class="footer-col-link" href="moomoobaking-shop.html">固定款蛋糕</a>
+      <a class="footer-col-link" href="moomoobaking-shop.html">客製蛋糕</a>
+      <a class="footer-col-link" href="moomoobaking-shop.html">烘焙課程</a>
+      <a class="footer-col-link" href="moomoobaking-account.html">會員方案</a>
+    </div>
+    <div>
+      <div class="footer-col-title">訂購資訊</div>
+      <a class="footer-col-link" href="#flow">訂購流程</a>
+      <a class="footer-col-link" href="#inquiry">AI 估價</a>
+      <a class="footer-col-link" href="https://tally.so/r/wvgB2l" target="_blank">客製表單</a>
+      <a class="footer-col-link" href="moomoobaking-account.html">會員登入</a>
+    </div>
+    <div>
+      <div class="footer-col-title">聯絡我們</div>
+      <a class="footer-col-link" href="https://instagram.com/moomoobaking" target="_blank">Instagram</a>
+      <a class="footer-col-link" href="#">Facebook</a>
+      <a class="footer-col-link" href="#">官方 LINE</a>
+    </div>
   </div>
-  <div class="footer-copy">© 2026 MooMoo Baking. All rights reserved.</div>
+  <div class="footer-bottom">
+    <span>© 2026 MooMoo Baking. All rights reserved.</span>
+    <span>手工甜點・客製蛋糕・節慶禮盒</span>
+  </div>
 </footer>
 
 <div class="sticky">
-  <a href="#inquiry">快速詢價</a>
-  <a href="https://tally.so/r/wvgB2l" target="_blank">立即訂購</a>
+  <a href="#inquiry">快速估價</a>
+  <a href="moomoobaking-shop.html">立即訂購</a>
 </div>
 
 <!-- FULLSCREEN OVERLAY -->
