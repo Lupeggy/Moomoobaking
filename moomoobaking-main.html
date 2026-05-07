@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>MooMoo Baking｜手工甜點與客製蛋糕</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --cream:#FDF8EF;--cream2:#F7EBDD;--milk:#FFFDF8;
+  --brown:#2B1B12;--brown2:#7A5C4D;
+  --pink:#D96B7F;--pink2:#F7D7DE;--pinkd:#C24570;
+  --gold:#C99A52;--line:#eadbc9;
+  --shadow:0 20px 60px rgba(43,27,18,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:"Noto Sans TC",sans-serif;background:var(--cream);color:var(--brown);overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+img{width:100%;display:block;}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;height:72px;z-index:99;background:rgba(253,248,239,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(43,27,18,.08);}
+.nav-inner{max-width:1120px;height:100%;margin:auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;}
+.logo{font-family:"Playfair Display",serif;font-size:24px;font-weight:900;letter-spacing:.02em;}
+.logo span{color:var(--pink);}
+.nav-links{display:flex;gap:26px;font-size:14px;font-weight:700;color:var(--brown2);}
+.nav-links a:hover{color:var(--brown);}
+.nav-btn{background:var(--brown);color:#fff;padding:11px 22px;border-radius:999px;font-size:14px;font-weight:700;}
+
+/* HERO */
+.hero{min-height:100vh;padding:130px 22px 80px;position:relative;overflow:hidden;}
+.hero:before{content:"";position:absolute;width:560px;height:560px;border-radius:50%;background:var(--pink2);right:-180px;top:80px;opacity:.65;}
+.hero-inner{max-width:1120px;margin:auto;display:grid;grid-template-columns:1.05fr .95fr;gap:58px;align-items:center;position:relative;z-index:2;}
+.badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 16px;color:var(--brown2);font-size:13px;font-weight:700;margin-bottom:24px;box-shadow:0 8px 24px rgba(43,27,18,.06);}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--pink);}
+.hero h1{font-family:"Playfair Display",serif;font-size:clamp(46px,7vw,82px);line-height:1.02;letter-spacing:-.04em;margin-bottom:24px;}
+.hero h1 em{color:var(--pink);font-style:normal;}
+.hero p{max-width:480px;font-size:18px;line-height:1.9;color:var(--brown2);margin-bottom:34px;}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center;}
+.btn-primary,.btn-secondary{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 28px;border-radius:999px;font-weight:800;font-size:15px;}
+.btn-primary{background:var(--brown);color:#fff;box-shadow:0 10px 22px rgba(43,27,18,.16);}
+.btn-secondary{background:#fff;border:1.5px solid var(--line);color:var(--brown);}
+.hero-card{position:relative;padding:18px;background:#fff;border:1px solid rgba(43,27,18,.08);border-radius:36px;box-shadow:var(--shadow);transform:rotate(2deg);}
+.hero-card img{height:520px;object-fit:cover;border-radius:28px;background:var(--cream2);}
+.floating-card{position:absolute;left:-34px;bottom:34px;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:22px;padding:18px 20px;box-shadow:0 20px 40px rgba(43,27,18,.14);transform:rotate(-2deg);}
+.floating-card strong{display:block;font-size:18px;margin-bottom:4px;}
+.floating-card span{font-size:13px;color:var(--brown2);}
+
+/* COMMON */
+.section{padding:90px 22px;}
+.container{max-width:1120px;margin:auto;}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:36px;}
+.kicker{color:var(--pink);font-weight:900;letter-spacing:.08em;font-size:13px;margin-bottom:10px;}
+h2{font-family:"Playfair Display",serif;font-size:clamp(34px,5vw,56px);line-height:1.05;letter-spacing:-.03em;}
+.section-desc{color:var(--brown2);font-size:15px;line-height:1.8;max-width:360px;}
+
+/* PRODUCTS */
+.products{background:var(--milk);border-radius:48px 48px 0 0;}
+.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.product-card{background:var(--cream);border:1px solid var(--line);border-radius:30px;overflow:hidden;box-shadow:0 14px 36px rgba(43,27,18,.06);transition:.25s ease;cursor:pointer;}
+.product-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
+.product-img{height:270px;background:var(--cream2);overflow:hidden;}
+.product-img img{height:100%;object-fit:cover;transition:transform .4s ease;}
+.product-card:hover .product-img img{transform:scale(1.04);}
+.product-body{padding:22px;}
+.tag{display:inline-block;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;color:var(--pink);font-size:12px;font-weight:900;margin-bottom:14px;}
+.product-body h3{font-size:20px;margin-bottom:8px;}
+.product-body p{color:var(--brown2);font-size:14px;line-height:1.7;margin-bottom:18px;}
+.price-row{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.price{font-family:"Playfair Display",serif;color:var(--pink);font-weight:900;font-size:22px;}
+.small-btn{background:var(--brown);color:#fff;border-radius:999px;padding:9px 15px;font-size:13px;font-weight:800;}
+
+/* CUSTOM */
+.custom{background:linear-gradient(135deg,#2B1B12,#5B3826);color:#fff;border-radius:42px;padding:58px;display:grid;grid-template-columns:1fr 1fr;gap:42px;align-items:center;overflow:hidden;position:relative;}
+.custom:after{content:"";position:absolute;right:-80px;bottom:-120px;width:340px;height:340px;border-radius:50%;background:rgba(255,255,255,.08);}
+.custom p{color:rgba(255,255,255,.72);line-height:1.9;margin-top:18px;}
+.price-chips{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;position:relative;z-index:2;}
+.chip{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:18px;}
+.chip small{display:block;color:rgba(255,255,255,.55);font-size:12px;margin-bottom:8px;}
+.chip strong{font-size:20px;color:#F7D7DE;}
+.custom .btn-primary{background:#fff;color:var(--brown);margin-top:28px;}
+
+/* INQUIRY */
+.inquiry-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:34px;align-items:start;}
+
+/* Expand button in chat header */
+.expand-btn{
+  margin-left:auto;
+  width:32px;height:32px;border-radius:8px;
+  background:var(--cream);border:1px solid var(--line);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  color:var(--brown2);flex-shrink:0;
+  transition:background .14s,color .14s;
+}
+.expand-btn:hover{background:var(--pink2);color:var(--pinkd);}
+
+/* Fullscreen overlay */
+.fs-overlay{
+  position:fixed;inset:0;z-index:999;
+  background:var(--cream);
+  display:flex;flex-direction:column;
+  transform:translateY(100%);
+  transition:transform .38s cubic-bezier(.4,0,.2,1);
+  will-change:transform;
+}
+.fs-overlay.open{transform:translateY(0);}
+
+.fs-inner{display:flex;flex-direction:column;height:100%;max-width:600px;margin:0 auto;width:100%;}
+
+/* Fullscreen top bar */
+.fs-topbar{
+  background:#fff;border-bottom:1px solid var(--line);
+  padding:12px 18px;display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+}
+.fs-logo{font-family:"Playfair Display",serif;font-size:18px;font-weight:900;}
+.fs-logo span{color:var(--pink);}
+.fs-topbar-right{display:flex;align-items:center;gap:10px;}
+.fs-order-btn{background:var(--brown);color:#fff;padding:8px 14px;border-radius:999px;font-size:12px;font-weight:700;}
+.fs-close-btn{width:34px;height:34px;border-radius:50%;background:var(--cream);border:1px solid var(--line);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--brown2);transition:background .14s;}
+.fs-close-btn:hover{background:var(--pink2);color:var(--pinkd);}
+
+/* Fullscreen hero strip */
+.fs-hero{
+  background:linear-gradient(135deg,#2B1B12,#5B3826);
+  padding:18px 20px 14px;flex-shrink:0;
+}
+.fs-steps{display:flex;gap:8px;margin-top:12px;}
+.fs-step{background:rgba(255,255,255,.12);border-radius:999px;padding:4px 10px;font-size:11px;font-weight:700;color:rgba(255,255,255,.8);}
+
+/* Chat area */
+.fs-chat{display:flex;flex-direction:column;flex:1;overflow:hidden;background:#fff;}
+.fs-prog-wrap{padding:8px 18px 4px;flex-shrink:0;}
+.fs-prog-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--brown2);font-weight:700;margin-bottom:4px;}
+.fs-prog-bar{height:3px;background:var(--line);border-radius:3px;overflow:hidden;}
+.fs-prog-fill{height:100%;background:linear-gradient(90deg,var(--pinkd),var(--pink));border-radius:3px;transition:width .4s cubic-bezier(.4,0,.2,1);}
+.fs-msgs{flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:7px;background:var(--cream);}
+.fs-msgs::-webkit-scrollbar{width:2px;}
+.fs-msgs::-webkit-scrollbar-thumb{background:var(--pink2);}
+.fs-opts{display:flex;flex-wrap:wrap;gap:7px;padding:8px 16px 6px;background:#fff;flex-shrink:0;}
+.fs-inp-row{display:flex;gap:8px;padding:10px 14px 20px;border-top:1px solid var(--line);background:#fff;align-items:center;flex-shrink:0;}
+.fs-txt{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:999px;padding:10px 14px;font-size:13px;font-family:"Noto Sans TC",sans-serif;color:var(--brown);background:#fff;outline:none;}
+.fs-txt:focus{border-color:var(--pink);}
+.fs-snd{width:38px;height:38px;border-radius:50%;flex-shrink:0;background:var(--brown);color:#fff;border:none;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;}
+
+/* Chat card */
+.inquiry-card{background:#fff;border:1px solid var(--line);border-radius:34px;overflow:hidden;box-shadow:var(--shadow);}
+
+/* Header — matches screenshot: white bg, pink M circle */
+.chat-head-bar{background:#fff;padding:16px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line);}
+.chat-avatar{width:46px;height:46px;border-radius:50%;background:var(--pink2);display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--pink);font-size:18px;flex-shrink:0;}
+.chat-meta strong{display:block;font-size:14px;font-weight:800;color:var(--brown);}
+.chat-meta span{font-size:12px;color:var(--brown2);display:flex;align-items:center;gap:4px;margin-top:2px;}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#4CAF50;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* Progress */
+.prog-wrap{padding:10px 20px 6px;}
+.prog-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--brown2);font-weight:700;margin-bottom:5px;}
+.prog-bar{height:3px;background:var(--line);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--pinkd),var(--pink));border-radius:3px;transition:width .4s cubic-bezier(.4,0,.2,1);}
+
+/* Messages */
+.ai-msgs{height:200px;overflow-y:auto;padding:14px 18px;display:flex;flex-direction:column;gap:7px;background:var(--cream);}
+.ai-msgs::-webkit-scrollbar{width:2px;}
+.ai-msgs::-webkit-scrollbar-thumb{background:var(--pink2);}
+.amsg{display:flex;align-items:flex-end;gap:6px;}
+.amsg.u{flex-direction:row-reverse;align-self:flex-end;max-width:86%;}
+.amsg.b{align-self:flex-start;max-width:92%;}
+.a-av{width:26px;height:26px;border-radius:50%;background:var(--pink2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--pink);flex-shrink:0;}
+.abub{padding:10px 14px;border-radius:18px;font-size:13px;line-height:1.6;word-break:break-word;}
+.b .abub{background:#fff;border:1px solid var(--line);border-bottom-left-radius:4px;color:var(--brown);}
+.u .abub{background:var(--pinkd);color:#fff;border-bottom-right-radius:4px;}
+
+/* Option chips — compact, wrap layout */
+.ai-opts{display:flex;flex-wrap:wrap;gap:7px;padding:10px 18px 8px;background:#fff;}
+.ai-opt{
+  background:#fff;border:1.5px solid var(--line);color:var(--brown);
+  font-size:12px;font-weight:700;padding:7px 14px;border-radius:999px;
+  cursor:pointer;font-family:"Noto Sans TC",sans-serif;white-space:nowrap;
+  transition:border-color .14s,background .14s;
+  -webkit-tap-highlight-color:transparent;
+}
+.ai-opt:hover,.ai-opt:active{border-color:var(--pink);background:var(--pink2);}
+
+/* Dashed upload box */
+.ai-upload-box{
+  margin:0 18px 10px;background:#fff;
+  border:1.5px dashed #d9b8b1;border-radius:18px;
+  padding:16px;text-align:center;color:var(--brown2);
+  font-size:13px;line-height:1.7;cursor:pointer;
+  transition:border-color .14s,background .14s;
+}
+.ai-upload-box:hover{border-color:var(--pink);background:var(--pink2);}
+
+/* Input row */
+.ai-inp-row{
+  display:flex;gap:8px;padding:10px 16px 16px;
+  border-top:1px solid var(--line);background:#fff;align-items:center;
+}
+.ai-txt{
+  flex:1;min-width:0;border:1.5px solid var(--line);border-radius:999px;
+  padding:10px 16px;font-size:13px;font-family:"Noto Sans TC",sans-serif;
+  color:var(--brown);background:#fff;outline:none;transition:border-color .14s;
+}
+.ai-txt:focus{border-color:var(--pink);}
+.ai-snd{
+  width:38px;height:38px;border-radius:50%;flex-shrink:0;
+  background:var(--brown);color:#fff;border:none;cursor:pointer;
+  font-size:15px;display:flex;align-items:center;justify-content:center;
+  transition:opacity .14s;-webkit-tap-highlight-color:transparent;
+}
+.ai-snd:hover{opacity:.8;}
+.ai-snd:active{opacity:.6;}
+
+/* Typing */
+.typing{display:flex;gap:4px;align-items:center;}
+.td{width:6px;height:6px;border-radius:50%;background:var(--line);animation:bl 1.2s infinite;}
+.td:nth-child(2){animation-delay:.2s;}.td:nth-child(3){animation-delay:.4s;}
+@keyframes bl{0%,80%,100%{opacity:.3}40%{opacity:1}}
+
+/* Estimate card */
+.est-card{background:var(--cream);border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:3px;}
+.est-card-title{font-size:11px;font-weight:900;color:var(--pink);margin-bottom:8px;letter-spacing:.08em;text-transform:uppercase;}
+.est-price{font-family:"Playfair Display",serif;font-size:22px;font-weight:900;color:var(--pinkd);margin:2px 0;}
+.est-note{font-size:10px;color:var(--brown2);margin-bottom:9px;line-height:1.5;}
+.est-row{display:flex;justify-content:space-between;padding:5px 0;border-top:.5px solid var(--line);font-size:12px;}
+.est-row:first-of-type{border-top:none;}
+.est-lbl{color:var(--brown2);}
+.est-val{font-weight:700;text-align:right;max-width:60%;}
+.lv-badge{display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;}
+.lv-badge.s{background:#FFF0F5;color:var(--pinkd);}
+.lv-badge.m{background:#FFF3E0;color:#BF5000;}
+.lv-badge.c{background:#FCE4EC;color:#880E4F;}
+/* Action buttons inside estimate card */
+.est-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;}
+.est-btn-line{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  padding:10px 8px;border-radius:999px;
+  background:#06C755;color:#fff;
+  font-size:12px;font-weight:800;font-family:"Noto Sans TC",sans-serif;
+  text-decoration:none;transition:opacity .14s;
+}
+.est-btn-line:hover{opacity:.88;}
+.est-btn-form{
+  display:flex;align-items:center;justify-content:center;gap:5px;
+  padding:10px 8px;border-radius:999px;
+  background:var(--brown);color:#fff;
+  font-size:12px;font-weight:800;font-family:"Noto Sans TC",sans-serif;
+  text-decoration:none;transition:opacity .14s;
+}
+.est-btn-form:hover{opacity:.88;}
+.est-hint{font-size:10px;color:var(--brown2);text-align:center;margin-top:8px;line-height:1.5;}
+
+/* FLOW */
+.flow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+.flow-card{background:#fff;border:1px solid var(--line);border-radius:28px;padding:26px;min-height:210px;}
+.num{width:42px;height:42px;border-radius:50%;background:var(--brown);color:#fff;display:flex;align-items:center;justify-content:center;font-family:"Playfair Display",serif;font-size:20px;font-weight:900;margin-bottom:22px;}
+.flow-card h3{font-size:18px;margin-bottom:12px;}
+.flow-card p{font-size:14px;line-height:1.8;color:var(--brown2);}
+
+/* REVIEWS */
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.review{background:#fff;border:1px solid var(--line);border-radius:28px;padding:26px;}
+.stars{color:var(--gold);letter-spacing:2px;margin-bottom:14px;}
+.review p{color:var(--brown2);line-height:1.8;font-size:14px;margin-bottom:18px;}
+.review strong{font-size:14px;}
+
+/* FOOTER */
+footer{background:var(--brown);color:rgba(255,255,255,.72);padding:54px 22px 100px;text-align:center;}
+footer .logo{color:#fff;margin-bottom:12px;display:block;}
+footer .logo span{color:#F7D7DE;}
+.footer-links{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin:24px 0;font-size:13px;font-weight:700;}
+.footer-links a{color:rgba(255,255,255,.6);transition:color .14s;}
+.footer-links a:hover{color:#fff;}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.42);}
+
+/* STICKY */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:80;background:rgba(253,248,239,.92);backdrop-filter:blur(18px);border-top:1px solid rgba(43,27,18,.1);padding:12px 18px 20px;display:none;gap:10px;}
+.sticky a{flex:1;text-align:center;border-radius:999px;padding:13px 10px;font-size:13px;font-weight:900;}
+.sticky a:first-child{background:#fff;border:1px solid var(--line);}
+.sticky a:last-child{background:var(--brown);color:#fff;}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  .nav-links{display:none;}
+  .nav{height:64px;}
+  .hero{padding-top:100px;}
+  .hero-inner,.custom,.inquiry-grid{grid-template-columns:1fr;}
+  .hero-card{transform:none;}
+  .hero-card img{height:430px;}
+  .floating-card{left:18px;bottom:18px;}
+  .section-head{display:block;}
+  .section-desc{margin-top:16px;}
+  .product-grid,.review-grid{grid-template-columns:1fr;}
+  .flow-grid{grid-template-columns:1fr 1fr;}
+  .custom{padding:36px 24px;}
+  .price-chips{grid-template-columns:1fr;}
+  .sticky{display:flex;}
+}
+@media(max-width:520px){
+  .hero h1{font-size:46px;}
+  .hero p{font-size:16px;}
+  .hero-card img{height:340px;}
+  .hero-actions{display:grid;grid-template-columns:1fr;width:100%;}
+  .btn-primary,.btn-secondary{width:100%;}
+  .section{padding:68px 18px;}
+  .products{border-radius:34px 34px 0 0;}
+  .product-img{height:240px;}
+  .flow-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="#">Moo<span>Moo</span></a>
+    <div class="nav-links">
+      <a href="#products">人氣甜點</a>
+      <a href="#custom">客製蛋糕</a>
+      <a href="#inquiry">快速詢價</a>
+      <a href="#flow">訂購流程</a>
+    </div>
+    <a class="nav-btn" href="https://tally.so/r/wvgB2l" target="_blank">立即訂購</a>
+  </div>
+</nav>
+
+<!-- HERO — 完全照原始設計 -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="badge"><span class="dot"></span> 手工製作・少量預訂・客製設計</div>
+      <h1>讓每個重要時刻<br>都有一顆<em>剛剛好</em>的蛋糕</h1>
+      <p>從生日、紀念日到送禮小點，MooMoo Baking 用溫柔的奶油色調與細緻手作，替你把心意做成甜點。</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="https://tally.so/r/wvgB2l" target="_blank">立即預訂</a>
+        <a class="btn-secondary" href="#inquiry">先快速詢價</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=900&q=80" alt="客製蛋糕"/>
+      <div class="floating-card">
+        <strong>NT$900 起</strong>
+        <span>4 吋客製蛋糕｜提前 5 天預訂</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="section products" id="products">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="kicker">BEST SELLERS</div>
+        <h2>人氣甜點</h2>
+      </div>
+      <p class="section-desc">用真實照片呈現甜點質感，比 icon 更能提高下單慾望。這區是網站最重要的賣點區。</p>
+    </div>
+    <div class="product-grid">
+      <div class="product-card" onclick="location.href='https://tally.so/r/wvgB2l'">
+        <div class="product-img"><img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=900&q=80" alt="生日蛋糕"/></div>
+        <div class="product-body">
+          <span class="tag">最熱門</span>
+          <h3>客製生日蛋糕</h3>
+          <p>可依照顏色、文字、風格與參考圖客製，適合生日、紀念日與驚喜派對。</p>
+          <div class="price-row"><span class="price">NT$900 起</span><a class="small-btn" href="#inquiry" onclick="event.stopPropagation()">詢價</a></div>
+        </div>
+      </div>
+      <div class="product-card" onclick="location.href='https://tally.so/r/wvgB2l'">
+        <div class="product-img"><img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=900&q=80" alt="手工餅乾"/></div>
+        <div class="product-body">
+          <span class="tag">送禮首選</span>
+          <h3>手工餅乾禮盒</h3>
+          <p>酥香不膩，適合下午茶、節慶送禮或公司小禮物，可搭配禮盒包裝。</p>
+          <div class="price-row"><span class="price">NT$380 起</span><a class="small-btn" href="https://tally.so/r/wvgB2l" target="_blank" onclick="event.stopPropagation()">訂購</a></div>
+        </div>
+      </div>
+      <div class="product-card" onclick="location.href='https://tally.so/r/wvgB2l'">
+        <div class="product-img"><img src="https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=900&q=80" alt="可麗露"/></div>
+        <div class="product-body">
+          <span class="tag">法式小點</span>
+          <h3>法式可麗露</h3>
+          <p>外層焦香酥脆，內裡濕潤柔軟，適合自己享受，也很適合搭配咖啡。</p>
+          <div class="price-row"><span class="price">NT$480 / 盒</span><a class="small-btn" href="https://tally.so/r/wvgB2l" target="_blank" onclick="event.stopPropagation()">訂購</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CUSTOM -->
+<section class="section" id="custom">
+  <div class="container">
+    <div class="custom">
+      <div>
+        <div class="kicker" style="color:#F7D7DE;">CUSTOM CAKE</div>
+        <h2>你的專屬蛋糕，<br>從想像變成實物</h2>
+        <p>不用很懂蛋糕也沒關係。只要提供想要的風格、色系、文字或參考圖，我們會協助整理成可製作的蛋糕方案。</p>
+        <a class="btn-primary" href="https://tally.so/r/wvgB2l" target="_blank">填寫客製表單</a>
+      </div>
+      <div class="price-chips">
+        <div class="chip"><small>4 吋｜1–2 人</small><strong>NT$900 起</strong></div>
+        <div class="chip"><small>6 吋｜3–6 人</small><strong>NT$1,500 起</strong></div>
+        <div class="chip"><small>8 吋｜6–10 人</small><strong>NT$2,400 起</strong></div>
+        <div class="chip"><small>急單服務</small><strong>+20%</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INQUIRY -->
+<section class="section" id="inquiry">
+  <div class="container">
+    <div class="inquiry-grid">
+      <div>
+        <div class="kicker">QUICK INQUIRY</div>
+        <h2>不知道價格？<br>先快速詢價</h2>
+        <p class="section-desc" style="margin-top:18px;">只需回答 4 個問題，AI 幫你整理需求並給出參考價格區間。正式報價由闆娘確認，完全不用擔心！</p>
+      </div>
+
+      <div class="inquiry-card">
+        <!-- Header -->
+        <div class="chat-head-bar">
+          <div class="chat-avatar">M</div>
+          <div class="chat-meta">
+            <strong>MooMoo 詢價小助手</strong>
+            <span><span class="live-dot"></span>30 秒整理需求・正式報價由闆娘確認</span>
+          </div>
+          <!-- Expand button -->
+          <button class="expand-btn" onclick="openFullscreen()" title="全螢幕開啟">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/>
+              <line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>
+            </svg>
+          </button>
+        </div>
+        <!-- Progress -->
+        <div class="prog-wrap">
+          <div class="prog-labels"><span id="progLabel">開始詢價</span><span id="progStep">0 / 4</span></div>
+          <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+        </div>
+        <!-- Messages -->
+        <div class="ai-msgs" id="aiMsgs"></div>
+        <!-- Options -->
+        <div class="ai-opts" id="aiOpts"></div>
+        <!-- Hidden file input -->
+        <input type="file" id="aiFile" accept="image/*" style="display:none" onchange="onAiFile(event)"/>
+        <!-- Input row -->
+        <div class="ai-inp-row">
+          <input class="ai-txt" id="aiTxt" placeholder="或直接打字回答…"/>
+          <button class="ai-snd" onclick="aiSend()">➤</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW -->
+<section class="section" id="flow">
+  <div class="container">
+    <div class="section-head">
+      <div><div class="kicker">ORDER FLOW</div><h2>訂購流程</h2></div>
+      <p class="section-desc">流程寫清楚，客人會比較安心，也能減少來回私訊。</p>
+    </div>
+    <div class="flow-grid">
+      <div class="flow-card"><div class="num">1</div><h3>填寫需求</h3><p>選擇品項、尺寸、日期，客製蛋糕請提供參考圖。</p></div>
+      <div class="flow-card"><div class="num">2</div><h3>確認報價</h3><p>店家會依照造型、尺寸、急單與裝飾確認正式價格。</p></div>
+      <div class="flow-card"><div class="num">3</div><h3>付款製作</h3><p>確認後支付訂金 50%，開始安排材料與手工製作。</p></div>
+      <div class="flow-card"><div class="num">4</div><h3>取貨享用</h3><p>依約定時間自取或配送，收到後即可享用與拍照。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section" style="padding-top:20px;">
+  <div class="container">
+    <div class="section-head"><div><div class="kicker">REVIEWS</div><h2>客人好評</h2></div></div>
+    <div class="review-grid">
+      <div class="review"><div class="stars">★★★★★</div><p>蛋糕本人比照片更可愛，奶油不會太膩，朋友看到都一直問哪裡訂。</p><strong>— Amy｜生日蛋糕</strong></div>
+      <div class="review"><div class="stars">★★★★★</div><p>詢價很清楚，不會不知道要怎麼講需求，最後做出來很接近參考圖。</p><strong>— Yijun｜客製蛋糕</strong></div>
+      <div class="review"><div class="stars">★★★★★</div><p>禮盒包裝很有質感，送人很適合，下次節日還會再訂。</p><strong>— Jerry｜甜點禮盒</strong></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">Moo<span>Moo</span> Baking</div>
+  <p>手工甜點・客製蛋糕・節慶禮盒</p>
+  <div class="footer-links">
+    <a href="#products">人氣甜點</a><a href="#custom">客製蛋糕</a>
+    <a href="#inquiry">快速詢價</a><a href="https://tally.so/r/wvgB2l" target="_blank">訂購表單</a>
+  </div>
+  <div class="footer-copy">© 2026 MooMoo Baking. All rights reserved.</div>
+</footer>
+
+<div class="sticky">
+  <a href="#inquiry">快速詢價</a>
+  <a href="https://tally.so/r/wvgB2l" target="_blank">立即訂購</a>
+</div>
+
+<!-- FULLSCREEN OVERLAY -->
+<div class="fs-overlay" id="fsOverlay" aria-modal="true" role="dialog">
+  <div class="fs-inner">
+    <!-- Top bar -->
+    <div class="fs-topbar">
+      <div class="fs-logo">Moo<span>Moo</span> 詢價小助手</div>
+      <div class="fs-topbar-right">
+        <a class="fs-order-btn" href="https://tally.so/r/wvgB2l" target="_blank">直接訂購</a>
+        <button class="fs-close-btn" onclick="closeFullscreen()" title="關閉">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <!-- Hero strip -->
+    <div class="fs-hero">
+      <div class="fs-hero-text">
+        <div style="font-size:12px;color:rgba(255,255,255,.6);margin-bottom:4px;">AI 蛋糕估價・免費・30 秒</div>
+        <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:#fff;line-height:1.2;">告訴我你的需求，<br/><em style="color:#F7D7DE;font-style:italic;">立即知道參考價格</em></div>
+      </div>
+      <div class="fs-steps">
+        <div class="fs-step">1 場合</div>
+        <div class="fs-step">2 尺寸</div>
+        <div class="fs-step">3 日期</div>
+        <div class="fs-step">4 造型</div>
+      </div>
+    </div>
+    <!-- Chat area -->
+    <div class="fs-chat">
+      <div class="fs-prog-wrap">
+        <div class="fs-prog-labels"><span id="fsPLabel">開始詢價</span><span id="fsPStep">0 / 4</span></div>
+        <div class="fs-prog-bar"><div class="fs-prog-fill" id="fsPFill" style="width:0%"></div></div>
+      </div>
+      <div class="fs-msgs" id="fsMsgs"></div>
+      <div class="fs-opts" id="fsOpts"></div>
+      <input type="file" id="fsFile" accept="image/*" style="display:none" onchange="onFsFile(event)"/>
+      <div class="fs-inp-row">
+        <input class="fs-txt" id="fsTxt" placeholder="或直接打字回答…"/>
+        <button class="fs-snd" onclick="fsSend()">➤</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════
+// FULLSCREEN AI (independent state)
+// ════════════════════════════════
+const FS_TALLY='https://tally.so/r/wvgB2l';
+const FS_BASE={'4吋':900,'6吋':1500,'8吋':2400,'10吋以上':3800};
+const FS_MULT={s:[1.0,1.15],m:[1.3,1.6],c:[1.8,2.4]};
+const FS_LNAME={s:'簡約',m:'中等',c:'複雜'};
+const FS_LDESC={s:'奶油花・文字・抹面',m:'卡通人偶・多色裝飾',c:'多層翻糖・精細手工'};
+const FS_LDAYS={s:'3–5 天',m:'5–7 天',c:'7 天以上'};
+
+const FS_STEPS=[
+  {label:'選場合',q:'嗨～想做什麼蛋糕呢？\n先跟我說是什麼場合吧 🎉',opts:['🎂 生日','💍 結婚紀念','👶 彌月','🥳 慶功派對','💝 情人節','📦 送禮用','其他']},
+  {label:'選尺寸',q:s=>`好的，${s}蛋糕！\n大概幾個人吃呢？`,opts:['1–2人（4吋）','3–6人（6吋）','6–10人（8吋）','10人以上（10吋以上）']},
+  {label:'選日期',q:'需要哪天拿到蛋糕呢？📅',opts:['3天內（急單）','4–7天後','一週以上','還沒確定']},
+  {label:'選造型',q:'最後一步！\n想要什麼造型風格呢？🎨\n\n可以上傳參考圖，或直接選下面',opts:['簡單文字＋奶油花','卡通人偶造型','多層精緻翻糖','還沒想好，給建議'],allowImg:true},
+];
+
+let FS={step:0,occasion:null,size:null,isUrgent:false,designDesc:null,designChoice:null,pendingB64:null,imgMime:'image/jpeg',busy:false,started:false};
+
+const fsMsgs=()=>document.getElementById('fsMsgs');
+const fsOpts=()=>document.getElementById('fsOpts');
+const fsTxt=()=>document.getElementById('fsTxt');
+const fsDelay=ms=>new Promise(r=>setTimeout(r,ms));
+const fsSb=()=>{const m=fsMsgs();m.scrollTop=m.scrollHeight;};
+
+function fsProg(n){
+  document.getElementById('fsPFill').style.width=(n/4*100)+'%';
+  document.getElementById('fsPStep').textContent=n+' / 4';
+  document.getElementById('fsPLabel').textContent=n<4?(FS_STEPS[n]?.label||'完成'):'完成！';
+}
+function fsAddBot(h){const r=document.createElement('div');r.className='amsg b';r.innerHTML=`<div class="a-av">M</div><div class="abub">${h.replace(/\n/g,'<br>')}</div>`;fsMsgs().appendChild(r);fsSb();}
+function fsAddUser(h){const r=document.createElement('div');r.className='amsg u';r.innerHTML=`<div class="abub">${h}</div>`;fsMsgs().appendChild(r);fsSb();}
+function fsShowTyping(){const r=document.createElement('div');r.className='amsg b';r.id='fstyp';r.innerHTML=`<div class="a-av">M</div><div class="abub"><div class="typing"><div class="td"></div><div class="td"></div><div class="td"></div></div></div>`;fsMsgs().appendChild(r);fsSb();}
+function fsRmTyping(){const t=document.getElementById('fstyp');if(t)t.remove();}
+
+function fsSetOpts(arr,allowImg=false){
+  const opts=fsOpts();opts.innerHTML='';
+  const old=document.getElementById('fsUploadBox');if(old)old.remove();
+  arr.forEach(o=>{const b=document.createElement('button');b.className='ai-opt';b.textContent=o;b.onclick=()=>fsOnOpt(o);opts.appendChild(b);});
+  if(allowImg){
+    const box=document.createElement('div');box.className='ai-upload-box';box.id='fsUploadBox';
+    box.innerHTML='📷 上傳參考圖 / 色系 / 想寫的文字<br><span style="font-size:11px;opacity:.7;">系統會先給參考區間，再由闆娘確認正式價格</span>';
+    box.onclick=()=>document.getElementById('fsFile').click();
+    opts.after(box);
+  }
+}
+function fsClearOpts(){fsOpts().innerHTML='';const old=document.getElementById('fsUploadBox');if(old)old.remove();}
+
+function fsBuildSummary(lv,low,high){
+  return encodeURIComponent(`🍰 MooMoo Baking 蛋糕詢價\n\n📋 需求摘要\n・場合：${FS.occasion||'未指定'}\n・尺寸：${FS.size||'6吋'}\n・日期：${FS.isUrgent?'⚡ 急單（3天內）':'一般預訂'}\n・造型：${FS.designDesc||FS.designChoice||'未指定'}\n・複雜度：${FS_LNAME[lv]}（${FS_LDESC[lv]}）\n\n💰 AI 初步估價：NT$${low.toLocaleString()}–${high.toLocaleString()}\n（參考區間，實際報價以闆娘確認為準）\n\n以上由 MooMoo AI 小助手自動整理，請協助確認可行性與正式報價 🙏`);
+}
+
+function fsShowCard(res){
+  const lv=res.level,base=FS_BASE[FS.size||'6吋'],[lo,hi]=FS_MULT[lv];
+  let low=Math.round(base*lo/100)*100,high=Math.round(base*hi/100)*100;
+  if(FS.isUrgent){low=Math.round(low*1.2/100)*100;high=Math.round(high*1.2/100)*100;}
+  const summary=fsBuildSummary(lv,low,high);
+  const lineUrl=`https://line.me/R/msg/text/?${summary}`;
+  const r=document.createElement('div');r.className='amsg b';
+  r.innerHTML=`<div class="a-av">M</div><div class="abub"><div class="est-card">
+    <div class="est-card-title">QUICK ESTIMATE</div>
+    <div class="est-price">NT$${low.toLocaleString()}–${high.toLocaleString()}</div>
+    <div class="est-note">參考區間・實際報價由闆娘確認</div>
+    <div class="est-row"><span class="est-lbl">場合</span><span class="est-val">${FS.occasion||'未指定'}</span></div>
+    <div class="est-row"><span class="est-lbl">尺寸</span><span class="est-val">${FS.size||'6吋'}</span></div>
+    <div class="est-row"><span class="est-lbl">複雜度</span><span class="est-val"><span class="lv-badge ${lv}">${FS_LNAME[lv]}</span> ${FS_LDESC[lv]}</span></div>
+    <div class="est-row"><span class="est-lbl">製作天數</span><span class="est-val">${FS_LDAYS[lv]}${FS.isUrgent?' ⚡急單':''}</span></div>
+    <div class="est-row"><span class="est-lbl">AI判斷</span><span class="est-val">${res.reason}</span></div>
+    <div class="est-row"><span class="est-lbl">小提醒</span><span class="est-val">${res.tip}</span></div>
+    <div class="est-actions">
+      <a class="est-btn-line" href="${lineUrl}" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.07 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+        傳給闆娘
+      </a>
+      <a class="est-btn-form" href="${FS_TALLY}" target="_blank">📋 填訂購表單</a>
+    </div>
+    <p class="est-hint">建議先填表單，闆娘有空會主動聯繫你 😊</p>
+  </div></div>`;
+  fsMsgs().appendChild(r);fsSb();
+}
+
+async function fsCallClaude(messages,sys,max=300){
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:max,system:sys,messages})});
+    const d=await res.json();return d.content?.find(c=>c.type==='text')?.text||'';
+  }catch{return '';}
+}
+async function fsAnalyze(b64,mime,desc){
+  const SYS=`你是 MooMoo Baking 蛋糕造型分析師。只回 JSON：\n{"level":"s|m|c","reason":"繁體中文15字","tip":"繁體中文20字"}\ns=簡約 m=中等 c=複雜`;
+  const content=b64?[{type:'image',source:{type:'base64',media_type:mime,data:b64}},{type:'text',text:desc?`說明：${desc}`:'分析蛋糕複雜度'}]:[{type:'text',text:`造型：${desc}`}];
+  const raw=await fsCallClaude([{role:'user',content}],SYS,200);
+  try{return JSON.parse(raw.replace(/```json|```/g,'').trim());}
+  catch{const d=(desc||'').toLowerCase();if(d.includes('翻糖')||d.includes('多層'))return{level:'c',reason:'多層翻糖造型',tip:'需提前10天預訂'};if(d.includes('卡通')||d.includes('人偶'))return{level:'m',reason:'卡通人偶裝飾',tip:'請附上清晰參考圖'};return{level:'s',reason:'簡約造型',tip:'3–5天可完成'};}
+}
+async function fsVerify(b64,mime){
+  const ok=await fsCallClaude([{role:'user',content:[{type:'image',source:{type:'base64',media_type:mime,data:b64}},{type:'text',text:'Is this a cake or baked dessert? YES or NO only.'}]}],'Reply YES or NO only.',20);
+  return ok.toUpperCase().includes('Y');
+}
+async function fsDetectIntent(txt){
+  const ctx=[];
+  if(FS.occasion)ctx.push(`場合:${FS.occasion}`);if(FS.size)ctx.push(`尺寸:${FS.size}`);
+  if(FS.step>2)ctx.push(`急單:${FS.isUrgent?'是':'否'}`);if(FS.designDesc)ctx.push(`造型:${FS.designDesc}`);
+  const SYS=`已收集:${ctx.join('/')||'無'} 步驟:${FS.step}\n只回JSON：{"intent":"correction|answer|question","field":"occasion|size|date|design|null","value":"解析值","confidence":0.0-1.0}\n尺寸：1-2人=4吋,3-6人=6吋,6-10人=8吋,10人+=10吋以上`;
+  try{const raw=await fsCallClaude([{role:'user',content:`用戶說：「${txt}」`}],SYS,150);return JSON.parse(raw.replace(/```json|```/g,'').trim());}
+  catch{return{intent:'answer',field:null,value:txt,confidence:.5};}
+}
+function fsFix(field,value){
+  if(!field||!value)return false;
+  if(field==='occasion'){FS.occasion=value;return true;}
+  if(field==='size'){if(value.includes('10'))FS.size='10吋以上';else if(value.includes('8'))FS.size='8吋';else if(value.includes('6'))FS.size='6吋';else if(value.includes('4'))FS.size='4吋';else FS.size=value;return true;}
+  if(field==='date'){FS.isUrgent=value.includes('急');return true;}
+  if(field==='design'){FS.designDesc=value;FS.designChoice=value;return true;}
+  return false;
+}
+
+async function fsGotoStep(n){
+  fsProg(n);if(n>=4){await fsEstimate();return;}
+  const cfg=FS_STEPS[n];fsShowTyping();await fsDelay(n===0?700:500);fsRmTyping();
+  const q=typeof cfg.q==='function'?cfg.q(FS.occasion):cfg.q;
+  fsAddBot(q);fsSetOpts(cfg.opts,cfg.allowImg);
+  fsTxt().placeholder=cfg.allowImg?'描述造型，或上傳參考圖 📷':'或直接打字回答…';
+}
+
+async function fsEstimate(){
+  fsClearOpts();fsTxt().disabled=true;fsProg(4);
+  fsShowTyping();fsAddBot('好的！幫你分析中…');
+  if(FS.pendingB64){
+    const ok=await fsVerify(FS.pendingB64,FS.imgMime);
+    if(!ok){fsRmTyping();fsAddBot('😅 這張圖片不太像蛋糕耶！\n可以重新上傳，或直接選下面的風格？');FS.pendingB64=null;fsSetOpts(['簡單文字＋奶油花','卡通人偶造型','多層精緻翻糖'],true);fsTxt().disabled=false;return;}
+  }
+  const result=await fsAnalyze(FS.pendingB64,FS.imgMime,FS.designDesc||FS.designChoice);
+  fsRmTyping();
+  if(FS.pendingB64){const r=document.createElement('div');r.className='amsg b';r.innerHTML=`<div class="a-av">M</div><div class="abub"><img src="data:${FS.imgMime};base64,${FS.pendingB64}" style="max-width:160px;border-radius:10px;border:1px solid var(--line);display:block;margin-bottom:4px;"/><span style="font-size:11px;color:var(--brown2);">分析參考圖中…</span></div>`;fsMsgs().appendChild(r);fsSb();await fsDelay(400);}
+  fsShowCard(result);
+  await fsDelay(400);fsShowTyping();await fsDelay(600);fsRmTyping();
+  fsAddBot('👆 直接選「傳給闆娘」帶著估價一起傳，\n或填表單讓闆娘有空再回覆你！');
+  fsSetOpts(['🔄 重新估價','❓ 有問題想問']);
+  fsTxt().disabled=false;fsTxt().placeholder='還有問題嗎？';
+}
+
+async function fsOnOpt(val){
+  if(FS.busy)return;FS.busy=true;fsClearOpts();fsAddUser(val);
+  if(val==='🔄 重新估價'){FS={step:0,occasion:null,size:null,isUrgent:false,designDesc:null,designChoice:null,pendingB64:null,imgMime:'image/jpeg',busy:false,started:true};fsMsgs().innerHTML='';fsProg(0);await fsGotoStep(0);}
+  else if(val==='❓ 有問題想問'){fsShowTyping();await fsDelay(400);fsRmTyping();fsAddBot('當然！直接問我吧 😊');fsTxt().placeholder='輸入問題…';FS.step=99;}
+  else if(val==='✨ 重新估價'){FS.step=4;await fsEstimate();}
+  else if(val==='不用，填表單就好'){window.open(FS_TALLY,'_blank');fsShowTyping();await fsDelay(400);fsRmTyping();fsAddBot('好的！表單已開啟 🎉');fsSetOpts(['🔄 重新估價']);}
+  else{
+    const n=FS.step;
+    if(n===0){FS.occasion=val.replace(/^[^\s]+\s/,'');FS.step=1;}
+    else if(n===1){const m=val.match(/（(.+)）/);FS.size=m?m[1]:'6吋';FS.step=2;}
+    else if(n===2){FS.isUrgent=val.includes('急');FS.step=3;}
+    else if(n===3){FS.designChoice=val;FS.designDesc=val;FS.step=4;}
+    await fsGotoStep(FS.step);
+  }
+  FS.busy=false;
+}
+
+async function fsSend(){
+  if(FS.busy)return;
+  const txt=fsTxt().value.trim(),hasImg=!!FS.pendingB64;
+  if(!txt&&!hasImg)return;
+  FS.busy=true;fsClearOpts();fsTxt().value='';
+  if(FS.step===99){fsAddUser(txt);fsShowTyping();await fsDelay(500);fsRmTyping();const r=await fsCallClaude([{role:'user',content:txt}],`MooMoo Baking客服，親切繁體中文2–3行。蛋糕900元起，提前5天，急單+20%。`);fsAddBot(r||'這個問題稍後透過 LINE 回覆你 🙏');fsSetOpts(['🔄 重新估價']);FS.busy=false;return;}
+  if(hasImg&&!txt&&FS.step===3){fsAddUser('📷 上傳了參考圖');FS.step=4;FS.busy=false;await fsEstimate();return;}
+  if(hasImg&&txt){fsAddUser(`📷 ${txt}`);FS.designDesc=txt;FS.step=4;FS.busy=false;await fsEstimate();return;}
+  fsAddUser(txt);
+  if(FS.step===0){FS.occasion=txt;FS.step=1;FS.busy=false;await fsGotoStep(1);return;}
+  fsShowTyping();const intent=await fsDetectIntent(txt);fsRmTyping();
+  if(intent.intent==='correction'&&intent.confidence>=.72){const changed=fsFix(intent.field,intent.value);if(changed){const lbl={occasion:'場合',size:'尺寸',date:'日期',design:'造型'}[intent.field]||intent.field;const nv=intent.field==='size'?FS.size:intent.field==='date'?(FS.isUrgent?'急單':'一般'):intent.value;fsAddBot(`好的！${lbl}改成「${nv}」✅`);if(FS.step>=4){await fsDelay(300);fsAddBot('要重新估價嗎？');fsSetOpts(['✨ 重新估價','不用，填表單就好']);}else{await fsDelay(300);await fsGotoStep(FS.step);}FS.busy=false;return;}}
+  if(intent.intent==='question'){const r=await fsCallClaude([{role:'user',content:txt}],`MooMoo Baking客服，親切繁體中文2–3行。蛋糕900元起。`);fsAddBot(r||'稍後透過 LINE 回覆你 🙏');fsSetOpts(['🔄 重新估價']);FS.busy=false;return;}
+  if(FS.step===1){fsFix('size',intent.value||txt);FS.step=2;}
+  else if(FS.step===2){fsFix('date',intent.value||txt);FS.step=3;}
+  else if(FS.step===3){FS.designDesc=intent.value||txt;FS.designChoice=FS.designDesc;FS.step=4;}
+  FS.busy=false;await fsGotoStep(FS.step);
+}
+
+function onFsFile(e){
+  const f=e.target.files[0];if(!f)return;
+  const mime=f.type||'image/jpeg';
+  const supported=['image/jpeg','image/png','image/gif','image/webp'];
+  const reader=new FileReader();
+  if(!supported.includes(mime)){const img=new Image();reader.onload=ev=>{img.onload=()=>{const c=document.createElement('canvas');c.width=img.width;c.height=img.height;c.getContext('2d').drawImage(img,0,0);FS.pendingB64=c.toDataURL('image/jpeg',.92).split(',')[1];FS.imgMime='image/jpeg';fsTxt().placeholder='圖片已上傳 ✅';};img.src=ev.target.result;};reader.readAsDataURL(f);}
+  else{reader.onload=ev=>{FS.pendingB64=ev.target.result.split(',')[1];FS.imgMime=mime;fsTxt().placeholder='圖片已上傳 ✅';};reader.readAsDataURL(f);}
+}
+
+fsTxt()?.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey)fsSend();});
+
+// Open / Close
+function openFullscreen(){
+  const overlay=document.getElementById('fsOverlay');
+  overlay.classList.add('open');
+  document.body.style.overflow='hidden';
+  // Boot chat only on first open
+  if(!FS.started){FS.started=true;fsGotoStep(0);}
+}
+function closeFullscreen(){
+  document.getElementById('fsOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+// Close on backdrop click
+document.getElementById('fsOverlay').addEventListener('click',function(e){if(e.target===this)closeFullscreen();});
+// ESC key
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeFullscreen();});
+</script>
+const BASE={'4吋':900,'6吋':1500,'8吋':2400,'10吋以上':3800};
+const MULT={s:[1.0,1.15],m:[1.3,1.6],c:[1.8,2.4]};
+const LNAME={s:'簡約',m:'中等',c:'複雜'};
+const LDESC={s:'奶油花・文字・抹面',m:'卡通人偶・多色裝飾',c:'多層翻糖・精細手工'};
+const LDAYS={s:'3–5 天',m:'5–7 天',c:'7 天以上'};
+
+const STEPS=[
+  {label:'選場合',q:'嗨～想做什麼蛋糕呢？\n先跟我說是什麼場合吧 🎉',
+   opts:['🎂 生日','💍 結婚紀念','👶 彌月','🥳 慶功派對','💝 情人節','📦 送禮用','其他']},
+  {label:'選尺寸',q:s=>`好的，${s}蛋糕！\n大概幾個人吃呢？`,
+   opts:['1–2人（4吋）','3–6人（6吋）','6–10人（8吋）','10人以上（10吋以上）']},
+  {label:'選日期',q:'需要哪天拿到蛋糕呢？📅',
+   opts:['3天內（急單）','4–7天後','一週以上','還沒確定']},
+  {label:'選造型',q:'最後一步！\n想要什麼造型風格呢？🎨\n\n可以上傳參考圖，或直接選下面',
+   opts:['簡單文字＋奶油花','卡通人偶造型','多層精緻翻糖','還沒想好，給建議'],allowImg:true},
+];
+
+// State — imgMime stores the actual MIME type of uploaded image
+let S={step:0,occasion:null,size:null,isUrgent:false,designDesc:null,designChoice:null,
+       pendingB64:null,imgMime:'image/jpeg',busy:false};
+
+const msgsEl=document.getElementById('aiMsgs');
+const optsEl=document.getElementById('aiOpts');
+const txInp=document.getElementById('aiTxt');
+const progFill=document.getElementById('progFill');
+const progLabel=document.getElementById('progLabel');
+const progStepEl=document.getElementById('progStep');
+const delay=ms=>new Promise(r=>setTimeout(r,ms));
+const sb=()=>{msgsEl.scrollTop=msgsEl.scrollHeight;};
+
+function setProg(n){
+  progFill.style.width=(n/4*100)+'%';
+  progStepEl.textContent=n+' / 4';
+  progLabel.textContent=n<4?(STEPS[n]?.label||'完成'):'完成！';
+}
+function addBot(h){
+  const r=document.createElement('div');r.className='amsg b';
+  r.innerHTML=`<div class="a-av">M</div><div class="abub">${h.replace(/\n/g,'<br>')}</div>`;
+  msgsEl.appendChild(r);sb();
+}
+function addUser(h){
+  const r=document.createElement('div');r.className='amsg u';
+  r.innerHTML=`<div class="abub">${h}</div>`;msgsEl.appendChild(r);sb();
+}
+function showTyping(){
+  const r=document.createElement('div');r.className='amsg b';r.id='typ';
+  r.innerHTML=`<div class="a-av">M</div><div class="abub"><div class="typing"><div class="td"></div><div class="td"></div><div class="td"></div></div></div>`;
+  msgsEl.appendChild(r);sb();
+}
+function rmTyping(){const t=document.getElementById('typ');if(t)t.remove();}
+
+function setOpts(arr,allowImg=false){
+  optsEl.innerHTML='';
+  // Remove old upload box if any
+  const old=document.getElementById('aiUploadBox');if(old)old.remove();
+
+  arr.forEach(o=>{
+    const b=document.createElement('button');b.className='ai-opt';b.textContent=o;
+    b.onclick=()=>onOpt(o);optsEl.appendChild(b);
+  });
+
+  if(allowImg){
+    const box=document.createElement('div');
+    box.className='ai-upload-box';box.id='aiUploadBox';
+    box.innerHTML='📷 上傳參考圖 / 色系 / 想寫的文字<br><span style="font-size:11px;opacity:.7;">系統會先給參考區間，再由闆娘確認正式價格</span>';
+    box.onclick=()=>document.getElementById('aiFile').click();
+    optsEl.after(box);
+  }
+}
+function clearOpts(){
+  optsEl.innerHTML='';
+  const old=document.getElementById('aiUploadBox');if(old)old.remove();
+}
+
+// ── LINE ID for owner (replace with actual @ID) ──
+const LINE_OA = 'https://line.me/R/ti/p/@moomoobaking'; // change to real LINE OA link
+
+function buildSummary(lv, low, high) {
+  return encodeURIComponent(
+`🍰 MooMoo Baking 蛋糕詢價
+
+📋 需求摘要
+・場合：${S.occasion||'未指定'}
+・尺寸：${S.size||'6吋'}
+・日期：${S.isUrgent?'⚡ 急單（3天內）':'一般預訂'}
+・造型：${S.designDesc||S.designChoice||'未指定'}
+・複雜度：${LNAME[lv]}（${LDESC[lv]}）
+
+💰 AI 初步估價：NT$${low.toLocaleString()}–${high.toLocaleString()}
+（參考區間，實際報價以闆娘確認為準）
+
+---
+以上由 MooMoo AI 小助手自動整理，請協助確認可行性與正式報價，謝謝！🙏`
+  );
+}
+
+function showCard(res){
+  const lv=res.level,base=BASE[S.size||'6吋'],[lo,hi]=MULT[lv];
+  let low=Math.round(base*lo/100)*100,high=Math.round(base*hi/100)*100;
+  if(S.isUrgent){low=Math.round(low*1.2/100)*100;high=Math.round(high*1.2/100)*100;}
+  const summary=buildSummary(lv,low,high);
+  const lineUrl=`https://line.me/R/msg/text/?${summary}`;
+
+  const r=document.createElement('div');r.className='amsg b';
+  r.innerHTML=`<div class="a-av">M</div><div class="abub"><div class="est-card">
+    <div class="est-card-title">QUICK ESTIMATE</div>
+    <div class="est-price">NT$${low.toLocaleString()}–${high.toLocaleString()}</div>
+    <div class="est-note">參考區間・實際報價由闆娘確認</div>
+    <div class="est-row"><span class="est-lbl">場合</span><span class="est-val">${S.occasion||'未指定'}</span></div>
+    <div class="est-row"><span class="est-lbl">尺寸</span><span class="est-val">${S.size||'6吋'}</span></div>
+    <div class="est-row"><span class="est-lbl">複雜度</span><span class="est-val"><span class="lv-badge ${lv}">${LNAME[lv]}</span> ${LDESC[lv]}</span></div>
+    <div class="est-row"><span class="est-lbl">製作天數</span><span class="est-val">${LDAYS[lv]}${S.isUrgent?' ⚡急單':''}</span></div>
+    <div class="est-row"><span class="est-lbl">AI判斷</span><span class="est-val">${res.reason}</span></div>
+    <div class="est-row"><span class="est-lbl">小提醒</span><span class="est-val">${res.tip}</span></div>
+    <div class="est-actions">
+      <a class="est-btn-line" href="${lineUrl}" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.070 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+        傳給闆娘（LINE）
+      </a>
+      <a class="est-btn-form" href="${TALLY}" target="_blank">📋 填寫訂購表單</a>
+    </div>
+    <p class="est-hint">建議先填表單，闆娘有空會主動聯繫你 😊</p>
+  </div></div>`;
+  msgsEl.appendChild(r);sb();
+}
+
+async function callClaude(messages,sys,max=300){
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:max,system:sys,messages})
+    });
+    const d=await res.json();
+    return d.content?.find(c=>c.type==='text')?.text||'';
+  }catch{return '';}
+}
+
+// ── FIX: use actual MIME type from file, not hardcoded jpeg ──
+async function aiAnalyze(b64,mime,desc){
+  const SYS=`你是 MooMoo Baking 蛋糕造型分析師。只回 JSON，不要其他文字：
+{"level":"s|m|c","reason":"繁體中文15字內","tip":"繁體中文20字內"}
+s=簡約(文字奶油花) m=中等(卡通人偶多色) c=複雜(多層翻糖精細手工)`;
+  const content=b64
+    ?[{type:'image',source:{type:'base64',media_type:mime||'image/jpeg',data:b64}},
+      {type:'text',text:desc?`客人說明：${desc}`:'請分析此蛋糕造型複雜度'}]
+    :[{type:'text',text:`客人描述造型：${desc}`}];
+  const raw=await callClaude([{role:'user',content}],SYS,200);
+  try{return JSON.parse(raw.replace(/```json|```/g,'').trim());}
+  catch{
+    const d=(desc||'').toLowerCase();
+    if(d.includes('翻糖')||d.includes('多層'))return{level:'c',reason:'多層翻糖造型',tip:'需提前10天預訂'};
+    if(d.includes('卡通')||d.includes('人偶'))return{level:'m',reason:'卡通人偶裝飾',tip:'請附上清晰參考圖'};
+    return{level:'s',reason:'簡約造型',tip:'3–5天可完成'};
+  }
+}
+
+// ── FIX: cake validation also uses correct MIME ──
+async function verifyCake(b64,mime){
+  const ok=await callClaude(
+    [{role:'user',content:[
+      {type:'image',source:{type:'base64',media_type:mime||'image/jpeg',data:b64}},
+      {type:'text',text:'Is this image showing a cake or baked dessert? Reply YES or NO only.'}
+    ]}],
+    'You verify images. Reply only YES or NO.',20
+  );
+  return ok.toUpperCase().includes('Y');
+}
+
+async function detectIntent(txt){
+  const ctx=[];
+  if(S.occasion)ctx.push(`場合:${S.occasion}`);
+  if(S.size)ctx.push(`尺寸:${S.size}`);
+  if(S.step>2)ctx.push(`急單:${S.isUrgent?'是':'否'}`);
+  if(S.designDesc)ctx.push(`造型:${S.designDesc}`);
+  const SYS=`已收集資訊：${ctx.join(' / ')||'無'}
+當前步驟：${S.step}（0=場合 1=尺寸 2=日期 3=造型 4=完成）
+只回 JSON，不要其他文字：
+{"intent":"correction|answer|question","field":"occasion|size|date|design|null","value":"解析後的值","confidence":0.0-1.0}
+尺寸解析：1-2人=4吋,3-6人=6吋,6-10人=8吋,10人以上=10吋以上,直接說吋數直接用`;
+  try{
+    const raw=await callClaude([{role:'user',content:`用戶說：「${txt}」`}],SYS,150);
+    return JSON.parse(raw.replace(/```json|```/g,'').trim());
+  }catch{return{intent:'answer',field:null,value:txt,confidence:.5};}
+}
+
+function applyFix(field,value){
+  if(!field||!value)return false;
+  if(field==='occasion'){S.occasion=value;return true;}
+  if(field==='size'){
+    if(value.includes('10'))S.size='10吋以上';
+    else if(value.includes('8'))S.size='8吋';
+    else if(value.includes('6'))S.size='6吋';
+    else if(value.includes('4'))S.size='4吋';
+    else S.size=value;
+    return true;
+  }
+  if(field==='date'){S.isUrgent=value.includes('急');return true;}
+  if(field==='design'){S.designDesc=value;S.designChoice=value;return true;}
+  return false;
+}
+
+async function gotoStep(n){
+  setProg(n);
+  if(n>=4){await doEstimate();return;}
+  const cfg=STEPS[n];
+  showTyping();await delay(n===0?700:500);rmTyping();
+  const q=typeof cfg.q==='function'?cfg.q(S.occasion):cfg.q;
+  addBot(q);
+  setOpts(cfg.opts,cfg.allowImg);
+  txInp.placeholder=cfg.allowImg?'描述造型，或上傳參考圖 📷':'或直接打字回答…';
+}
+
+async function doEstimate(){
+  clearOpts();txInp.disabled=true;setProg(4);
+  showTyping();addBot('好的！幫你分析中…');
+
+  if(S.pendingB64){
+    // Use actual MIME type stored from file upload
+    const ok=await verifyCake(S.pendingB64,S.imgMime);
+    if(!ok){
+      rmTyping();
+      addBot('😅 這張圖片不太像蛋糕耶！\n可以重新上傳，或直接選下面的風格？');
+      S.pendingB64=null;
+      setOpts(['簡單文字＋奶油花','卡通人偶造型','多層精緻翻糖'],true);
+      txInp.disabled=false;return;
+    }
+  }
+
+  const result=await aiAnalyze(S.pendingB64,S.imgMime,S.designDesc||S.designChoice);
+  rmTyping();
+
+  if(S.pendingB64){
+    const r=document.createElement('div');r.className='amsg b';
+    r.innerHTML=`<div class="a-av">M</div><div class="abub">
+      <img src="data:${S.imgMime};base64,${S.pendingB64}"
+           style="max-width:160px;border-radius:10px;border:1px solid var(--line);display:block;margin-bottom:4px;"/>
+      <span style="font-size:11px;color:var(--brown2);">分析參考圖中…</span>
+    </div>`;
+    msgsEl.appendChild(r);sb();await delay(400);
+  }
+
+  showCard(result);
+  await delay(500);showTyping();await delay(700);rmTyping();
+  addBot('這是給你的參考價格 🎀\n\n👆 直接選「傳給闆娘」帶著估價一起傳，或填表單讓闆娘有空回覆你！');
+  setOpts(['🔄 重新估價','❓ 有問題想問']);
+  txInp.disabled=false;txInp.placeholder='還有問題嗎？';
+}
+
+async function onOpt(val){
+  if(S.busy)return;S.busy=true;clearOpts();addUser(val);
+  if(val==='🔄 重新估價'){
+    S={step:0,occasion:null,size:null,isUrgent:false,designDesc:null,designChoice:null,pendingB64:null,imgMime:'image/jpeg',busy:false};
+    msgsEl.innerHTML='';setProg(0);await aiInit();
+  }else if(val==='❓ 有問題想問'){
+    showTyping();await delay(400);rmTyping();
+    addBot('當然！直接問我吧 😊');txInp.placeholder='輸入問題…';S.step=99;
+  }else if(val==='✨ 重新估價'){
+    S.step=4;await doEstimate();
+  }else if(val==='不用，填表單就好'){
+    window.open(TALLY,'_blank');showTyping();await delay(400);rmTyping();
+    addBot('好的！表單已開啟，填完後我們盡快聯繫 🎉');setOpts(['🔄 重新估價']);
+  }else{
+    const n=S.step;
+    if(n===0){S.occasion=val.replace(/^[^\s]+\s/,'');S.step=1;}
+    else if(n===1){const m=val.match(/（(.+)）/);S.size=m?m[1]:'6吋';S.step=2;}
+    else if(n===2){S.isUrgent=val.includes('急');S.step=3;}
+    else if(n===3){S.designChoice=val;S.designDesc=val;S.step=4;}
+    await gotoStep(S.step);
+  }
+  S.busy=false;
+}
+
+async function aiSend(){
+  if(S.busy)return;
+  const txt=txInp.value.trim(),hasImg=!!S.pendingB64;
+  if(!txt&&!hasImg)return;
+  S.busy=true;clearOpts();txInp.value='';
+
+  if(S.step===99){
+    addUser(txt||'📷 上傳了圖片');showTyping();await delay(500);rmTyping();
+    const r=await callClaude([{role:'user',content:txt}],
+      `你是 MooMoo Baking 客服，語氣親切像朋友。繁體中文，2–3行。蛋糕900元起，提前5天預訂，急單+20%，50%訂金。回覆後加：「還有問題嗎？😊」`);
+    addBot(r||'這個問題我們稍後透過 LINE 回覆你 🙏\n還有問題嗎？😊');
+    setOpts(['立即填寫訂購表單','🔄 重新估價']);S.busy=false;return;
+  }
+  if(hasImg&&!txt&&S.step===3){addUser('📷 上傳了參考圖');S.step=4;S.busy=false;await doEstimate();return;}
+  if(hasImg&&txt){addUser(`📷 ${txt}`);S.designDesc=txt;S.step=4;S.busy=false;await doEstimate();return;}
+
+  addUser(txt);
+  if(S.step===0){S.occasion=txt;S.step=1;S.busy=false;await gotoStep(1);return;}
+
+  showTyping();
+  const intent=await detectIntent(txt);
+  rmTyping();
+
+  if(intent.intent==='correction'&&intent.confidence>=.72){
+    const changed=applyFix(intent.field,intent.value);
+    if(changed){
+      const lbl={occasion:'場合',size:'尺寸',date:'日期',design:'造型'}[intent.field]||intent.field;
+      const nv=intent.field==='size'?S.size:intent.field==='date'?(S.isUrgent?'急單':'一般'):intent.value;
+      addBot(`好的！${lbl}改成「${nv}」✅`);
+      if(S.step>=4){await delay(300);addBot('要我用新資訊重新估價嗎？');setOpts(['✨ 重新估價','不用，填表單就好']);}
+      else{await delay(300);await gotoStep(S.step);}
+      S.busy=false;return;
+    }
+  }
+  if(intent.intent==='question'){
+    const r=await callClaude([{role:'user',content:txt}],
+      `MooMoo Baking 客服，親切繁體中文2–3行。蛋糕900元起，提前5天，急單+20%。`);
+    addBot(r||'這個問題稍後透過 LINE 回覆你 🙏');
+    setOpts(['立即填寫訂購表單','🔄 重新估價']);S.busy=false;return;
+  }
+  if(S.step===1){applyFix('size',intent.value||txt);S.step=2;}
+  else if(S.step===2){applyFix('date',intent.value||txt);S.step=3;}
+  else if(S.step===3){S.designDesc=intent.value||txt;S.designChoice=S.designDesc;S.step=4;}
+  S.busy=false;await gotoStep(S.step);
+}
+
+// ── FIX: read actual MIME type from File object ──
+function onAiFile(e){
+  const f=e.target.files[0];if(!f)return;
+  // Store real MIME type (image/png, image/jpeg, image/heic, etc.)
+  const mime=f.type||'image/jpeg';
+  // Anthropic API supports: image/jpeg, image/png, image/gif, image/webp
+  // Convert unsupported types (heic, heif, bmp) to jpeg via canvas
+  const supported=['image/jpeg','image/png','image/gif','image/webp'];
+  const reader=new FileReader();
+  if(!supported.includes(mime)){
+    // Draw to canvas → export as jpeg
+    const img=new Image();
+    reader.onload=ev=>{
+      img.onload=()=>{
+        const c=document.createElement('canvas');
+        c.width=img.width;c.height=img.height;
+        c.getContext('2d').drawImage(img,0,0);
+        const jpegData=c.toDataURL('image/jpeg',.92).split(',')[1];
+        S.pendingB64=jpegData;S.imgMime='image/jpeg';
+        txInp.placeholder='圖片已上傳 ✅ 可加說明再按送出';
+      };
+      img.src=ev.target.result;
+    };
+    reader.readAsDataURL(f);
+  }else{
+    reader.onload=ev=>{
+      S.pendingB64=ev.target.result.split(',')[1];
+      S.imgMime=mime;
+      txInp.placeholder='圖片已上傳 ✅ 可加說明再按送出';
+    };
+    reader.readAsDataURL(f);
+  }
+}
+
+async function aiInit(){
+  txInp.disabled=true;
+  showTyping();await delay(700);rmTyping();
+  addBot('嗨～想做什麼蛋糕呢？\n你可以先選尺寸，也可以直接上傳參考圖片。');
+  await delay(200);txInp.disabled=false;S.step=0;
+  await gotoStep(0);
+}
+
+txInp.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey)aiSend();});
+aiInit();
+</script>
+</body>
+</html>
