@@ -1003,6 +1003,21 @@ async function aiInit(){
 }
 
 txInp.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey)aiSend();});
+
+// ── FULLSCREEN OPEN / CLOSE ──
+function openFullscreen(){
+  const overlay=document.getElementById('fsOverlay');
+  overlay.classList.add('open');
+  document.body.style.overflow='hidden';
+  if(!FS.started){FS.started=true;fsGotoStep(0);}
+}
+function closeFullscreen(){
+  document.getElementById('fsOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('fsOverlay').addEventListener('click',function(e){if(e.target===this)closeFullscreen();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeFullscreen();});
+
 aiInit();
 </script>
 </body>
