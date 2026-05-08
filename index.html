@@ -181,8 +181,13 @@ h2{font-family:"Playfair Display",serif;font-size:clamp(34px,5vw,56px);line-heig
   cursor:pointer;font-family:"Noto Sans TC",sans-serif;white-space:nowrap;
   transition:border-color .14s,background .14s;
   -webkit-tap-highlight-color:transparent;
+  text-decoration:none;display:inline-flex;align-items:center;gap:5px;
 }
 .ai-opt:hover,.ai-opt:active{border-color:var(--pink);background:var(--pink2);}
+.ai-opt-line{background:#06C755;border-color:#06C755;color:#fff !important;}
+.ai-opt-line:hover{background:#05b050;border-color:#05b050;}
+.ai-opt-form{background:var(--brown);border-color:var(--brown);color:#fff !important;}
+.ai-opt-form:hover{background:#1a0e06;border-color:#1a0e06;}
 
 /* Dashed upload box */
 .ai-upload-box{
@@ -299,16 +304,24 @@ footer .logo span{color:#F7D7DE;}
   .price-chips{grid-template-columns:1fr;}
   .sticky{display:flex;}
 }
+@media(max-width:860px){
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-card{transform:none;display:none;}
+}
 @media(max-width:520px){
-  .hero h1{font-size:46px;}
-  .hero p{font-size:16px;}
-  .hero-card img{height:340px;}
+  .hero{padding:100px 20px 56px;}
+  .hero h1{font-size:40px;}
+  .hero p{font-size:15px;}
   .hero-actions{display:grid;grid-template-columns:1fr;width:100%;}
-  .btn-primary,.btn-secondary{width:100%;}
-  .section{padding:68px 18px;}
-  .products{border-radius:34px 34px 0 0;}
-  .product-img{height:240px;}
+  .btn-primary,.btn-secondary{width:100%;min-height:54px;font-size:16px;}
+  .section{padding:56px 18px;}
+  .products{border-radius:28px 28px 0 0;}
+  .product-img{height:220px;}
+  .product-grid{grid-template-columns:1fr;}
+  .review-grid{grid-template-columns:1fr;}
   .flow-grid{grid-template-columns:1fr;}
+  .custom{padding:28px 20px;grid-template-columns:1fr;}
+  .price-chips{grid-template-columns:1fr;}
 }
 
 /* ── SHARED FOOTER ── */
@@ -342,9 +355,6 @@ footer .logo span{color:#F7D7DE;}
       <a href="#flow">訂購流程</a>
     </div>
     <div style="display:flex;align-items:center;gap:8px;">
-      <a href="moomoobaking-account.html" title="會員中心" style="width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7A5C4D" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      </a>
       <a class="nav-btn" href="moomoobaking-shop.html">立即訂購</a>
     </div>
   </div>
@@ -358,8 +368,7 @@ footer .logo span{color:#F7D7DE;}
       <h1>讓每個重要時刻<br>都有一顆<em>剛剛好</em>的蛋糕</h1>
       <p>從生日、紀念日到送禮小點，MooMoo Baking 用溫柔的奶油色調與細緻手作，替你把心意做成甜點。</p>
       <div class="hero-actions">
-        <a class="btn-primary" href="https://tally.so/r/wvgB2l" target="_blank">立即預訂</a>
-        <a class="btn-secondary" href="#inquiry">先快速詢價</a>
+        <a class="btn-primary" href="moomoobaking-shop.html">立即訂購</a>
       </div>
     </div>
     <div class="hero-card">
@@ -380,7 +389,7 @@ footer .logo span{color:#F7D7DE;}
         <div class="kicker">BEST SELLERS</div>
         <h2>人氣甜點</h2>
       </div>
-      <p class="section-desc">用真實照片呈現甜點質感，比 icon 更能提高下單慾望。這區是網站最重要的賣點區。</p>
+      <p class="section-desc">每樣都是手工製作，限量供應，賣完為止。</p>
     </div>
     <div class="product-grid">
       <div class="product-card" onclick="location.href='https://tally.so/r/wvgB2l'">
@@ -525,14 +534,12 @@ footer .logo span{color:#F7D7DE;}
       <a class="footer-col-link" href="moomoobaking-shop.html">固定款蛋糕</a>
       <a class="footer-col-link" href="moomoobaking-shop.html">客製蛋糕</a>
       <a class="footer-col-link" href="moomoobaking-shop.html">烘焙課程</a>
-      <a class="footer-col-link" href="moomoobaking-account.html">會員方案</a>
     </div>
     <div>
       <div class="footer-col-title">訂購資訊</div>
       <a class="footer-col-link" href="#flow">訂購流程</a>
       <a class="footer-col-link" href="#inquiry">AI 估價</a>
       <a class="footer-col-link" href="https://tally.so/r/wvgB2l" target="_blank">客製表單</a>
-      <a class="footer-col-link" href="moomoobaking-account.html">會員登入</a>
     </div>
     <div>
       <div class="footer-col-title">聯絡我們</div>
@@ -616,6 +623,7 @@ const FS_STEPS=[
 ];
 
 let FS={step:0,occasion:null,size:null,isUrgent:false,designDesc:null,designChoice:null,pendingB64:null,imgMime:'image/jpeg',busy:false,started:false};
+let fsLastResult=null;
 
 const fsMsgs=()=>document.getElementById('fsMsgs');
 const fsOpts=()=>document.getElementById('fsOpts');
@@ -732,9 +740,28 @@ async function fsEstimate(){
   const result=await fsAnalyze(FS.pendingB64,FS.imgMime,FS.designDesc||FS.designChoice);
   fsRmTyping();
   if(FS.pendingB64){const r=document.createElement('div');r.className='amsg b';r.innerHTML=`<div class="a-av">M</div><div class="abub"><img src="data:${FS.imgMime};base64,${FS.pendingB64}" style="max-width:160px;border-radius:10px;border:1px solid var(--line);display:block;margin-bottom:4px;"/><span style="font-size:11px;color:var(--brown2);">分析參考圖中…</span></div>`;fsMsgs().appendChild(r);fsSb();await fsDelay(400);}
+  fsLastResult=result;
   fsShowCard(result);
   await fsDelay(400);fsShowTyping();await fsDelay(600);fsRmTyping();
-  fsAddBot('👆 直接選「傳給闆娘」帶著估價一起傳，\n或填表單讓闆娘有空再回覆你！');
+  // Show LINE + form action buttons in chat
+  const actRow=document.createElement('div');actRow.className='amsg b';
+  const lv=fsLastResult?fsLastResult.level:'m';
+  const ctx=`場合:${FS.occasion||'未指定'} 尺寸:${FS.size||'6吋'} 造型:${FS.designDesc||FS.designChoice||'未指定'}`;
+  const lineMsg=encodeURIComponent(`🍰 MooMoo 蛋糕詢價\n\n${ctx}\n\n由 AI 小助手整理，請協助確認報價 🙏`);
+  actRow.innerHTML=`<div class="a-av">M</div><div class="abub">
+    <div style="font-size:12px;margin-bottom:10px;color:var(--muted);">接下來你可以：</div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <a href="https://line.me/R/msg/text/?${lineMsg}" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:6px;padding:11px 14px;border-radius:999px;background:#06C755;color:#fff;font-size:13px;font-weight:800;text-decoration:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.07 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+        傳給闆娘（LINE）
+      </a>
+      <a href="https://tally.so/r/wvgB2l" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:6px;padding:11px 14px;border-radius:999px;background:var(--ink);color:#fff;font-size:13px;font-weight:800;text-decoration:none;">
+        📋 填寫訂購表單
+      </a>
+    </div>
+    <p style="font-size:10px;color:var(--muted);margin-top:8px;text-align:center;">建議先填表單，闆娘有空會主動聯繫 😊</p>
+  </div>`;
+  fsMsgs().appendChild(actRow);fsSb();
   fsSetOpts(['🔄 重新估價','❓ 有問題想問']);
   fsTxt().disabled=false;fsTxt().placeholder='還有問題嗎？';
 }
@@ -803,6 +830,8 @@ document.getElementById('fsOverlay').addEventListener('click',function(e){if(e.t
 // ESC key
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeFullscreen();});
 </script>
+<script>
+// ── INLINE CHAT AI ENGINE ──
 const BASE={'4吋':900,'6吋':1500,'8吋':2400,'10吋以上':3800};
 const MULT={s:[1.0,1.15],m:[1.3,1.6],c:[1.8,2.4]};
 const LNAME={s:'簡約',m:'中等',c:'複雜'};
@@ -823,6 +852,7 @@ const STEPS=[
 // State — imgMime stores the actual MIME type of uploaded image
 let S={step:0,occasion:null,size:null,isUrgent:false,designDesc:null,designChoice:null,
        pendingB64:null,imgMime:'image/jpeg',busy:false};
+let inlineLastResult=null;
 
 const msgsEl=document.getElementById('aiMsgs');
 const optsEl=document.getElementById('aiOpts');
@@ -854,7 +884,7 @@ function showTyping(){
 }
 function rmTyping(){const t=document.getElementById('typ');if(t)t.remove();}
 
-function setOpts(arr,allowImg=false){
+function setOpts(arr,allowImg=false,lineMsg=null){
   optsEl.innerHTML='';
   // Remove old upload box if any
   const old=document.getElementById('aiUploadBox');if(old)old.remove();
@@ -863,6 +893,21 @@ function setOpts(arr,allowImg=false){
     const b=document.createElement('button');b.className='ai-opt';b.textContent=o;
     b.onclick=()=>onOpt(o);optsEl.appendChild(b);
   });
+
+  // LINE + form action buttons alongside chips
+  if(lineMsg){
+    const line=document.createElement('a');
+    line.href=`https://line.me/R/msg/text/?${lineMsg}`;
+    line.target='_blank';
+    line.className='ai-opt ai-opt-line';
+    line.innerHTML=`<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.07 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg> 傳給闆娘`;
+    optsEl.appendChild(line);
+    const form=document.createElement('a');
+    form.href=TALLY;form.target='_blank';
+    form.className='ai-opt ai-opt-form';
+    form.textContent='📋 填訂購表單';
+    optsEl.appendChild(form);
+  }
 
   if(allowImg){
     const box=document.createElement('div');
@@ -1034,20 +1079,14 @@ async function doEstimate(){
   const result=await aiAnalyze(S.pendingB64,S.imgMime,S.designDesc||S.designChoice);
   rmTyping();
 
-  if(S.pendingB64){
-    const r=document.createElement('div');r.className='amsg b';
-    r.innerHTML=`<div class="a-av">M</div><div class="abub">
-      <img src="data:${S.imgMime};base64,${S.pendingB64}"
-           style="max-width:160px;border-radius:10px;border:1px solid var(--line);display:block;margin-bottom:4px;"/>
-      <span style="font-size:11px;color:var(--brown2);">分析參考圖中…</span>
-    </div>`;
-    msgsEl.appendChild(r);sb();await delay(400);
-  }
-
+  inlineLastResult=result;
   showCard(result);
   await delay(500);showTyping();await delay(700);rmTyping();
-  addBot('這是給你的參考價格 🎀\n\n👆 直接選「傳給闆娘」帶著估價一起傳，或填表單讓闆娘有空回覆你！');
-  setOpts(['🔄 重新估價','❓ 有問題想問']);
+  addBot('這是你的參考價格 🎀 實際報價由闆娘確認！');
+  // LINE + form buttons sit alongside the chips
+  const _ctx=`場合:${S.occasion||'未指定'} 尺寸:${S.size||'6吋'} 造型:${S.designDesc||S.designChoice||'未指定'}`;
+  const _lineMsg=encodeURIComponent(`🍰 MooMoo 蛋糕詢價\n\n${_ctx}\n\n由 AI 小助手整理，請協助確認報價 🙏`);
+  setOpts(['🔄 重新估價','❓ 有問題想問'],false,_lineMsg);
   txInp.disabled=false;txInp.placeholder='還有問題嗎？';
 }
 
@@ -1121,35 +1160,44 @@ async function aiSend(){
   S.busy=false;await gotoStep(S.step);
 }
 
+// Show uploaded image preview in chat bubble immediately
+function showImgPreview(dataUrl){
+  const r=document.createElement('div');r.className='amsg u';r.id='imgPreviewMsg';
+  r.innerHTML=`<div class="abub" style="padding:6px;background:var(--pink2);border-bottom-right-radius:4px;">
+    <img src="${dataUrl}" style="max-width:120px;max-height:120px;border-radius:8px;display:block;"/>
+    <div style="font-size:10px;text-align:center;margin-top:4px;color:var(--brown2);">📷 圖片已上傳</div>
+  </div>`;
+  msgsEl.appendChild(r);sb();
+}
+
 // ── FIX: read actual MIME type from File object ──
 function onAiFile(e){
   const f=e.target.files[0];if(!f)return;
-  // Store real MIME type (image/png, image/jpeg, image/heic, etc.)
   const mime=f.type||'image/jpeg';
-  // Anthropic API supports: image/jpeg, image/png, image/gif, image/webp
-  // Convert unsupported types (heic, heif, bmp) to jpeg via canvas
   const supported=['image/jpeg','image/png','image/gif','image/webp'];
   const reader=new FileReader();
   if(!supported.includes(mime)){
-    // Draw to canvas → export as jpeg
     const img=new Image();
     reader.onload=ev=>{
+      // Show preview first
+      showImgPreview(ev.target.result);
       img.onload=()=>{
         const c=document.createElement('canvas');
         c.width=img.width;c.height=img.height;
         c.getContext('2d').drawImage(img,0,0);
-        const jpegData=c.toDataURL('image/jpeg',.92).split(',')[1];
-        S.pendingB64=jpegData;S.imgMime='image/jpeg';
-        txInp.placeholder='圖片已上傳 ✅ 可加說明再按送出';
+        S.pendingB64=c.toDataURL('image/jpeg',.92).split(',')[1];S.imgMime='image/jpeg';
+        txInp.placeholder='圖片已上傳 ✅ 按送出或加說明';
       };
       img.src=ev.target.result;
     };
     reader.readAsDataURL(f);
   }else{
     reader.onload=ev=>{
+      // Show preview immediately
+      showImgPreview(ev.target.result);
       S.pendingB64=ev.target.result.split(',')[1];
       S.imgMime=mime;
-      txInp.placeholder='圖片已上傳 ✅ 可加說明再按送出';
+      txInp.placeholder='圖片已上傳 ✅ 按送出或加說明';
     };
     reader.readAsDataURL(f);
   }
