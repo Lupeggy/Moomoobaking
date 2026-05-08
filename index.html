@@ -733,10 +733,7 @@ async function fsGotoStep(n){
 async function fsEstimate(){
   fsClearOpts();fsTxt().disabled=true;fsProg(4);
   fsShowTyping();fsAddBot('好的！幫你分析中…');
-  if(FS.pendingB64){
-    const ok=await fsVerify(FS.pendingB64,FS.imgMime);
-    if(!ok){fsRmTyping();fsAddBot('😅 這張圖片不太像蛋糕耶！\n可以重新上傳，或直接選下面的風格？');FS.pendingB64=null;fsSetOpts(['簡單文字＋奶油花','卡通人偶造型','多層精緻翻糖'],true);fsTxt().disabled=false;return;}
-  }
+
   const result=await fsAnalyze(FS.pendingB64,FS.imgMime,FS.designDesc||FS.designChoice);
   fsRmTyping();
   if(FS.pendingB64){const r=document.createElement('div');r.className='amsg b';r.innerHTML=`<div class="a-av">M</div><div class="abub"><img src="data:${FS.imgMime};base64,${FS.pendingB64}" style="max-width:160px;border-radius:10px;border:1px solid var(--line);display:block;margin-bottom:4px;"/><span style="font-size:11px;color:var(--brown2);">分析參考圖中…</span></div>`;fsMsgs().appendChild(r);fsSb();await fsDelay(400);}
@@ -987,9 +984,11 @@ async function callClaude(messages,sys,max=300){
 
 // ── FIX: use actual MIME type from file, not hardcoded jpeg ──
 async function aiAnalyze(b64,mime,desc){
-  const SYS=`你是 MooMoo Baking 蛋糕造型分析師。只回 JSON，不要其他文字：
+  const SYS=`你是 MooMoo Baking 蛋糕造型分析師。客人上傳的是他們想要的蛋糕參考圖。
+請根據圖片或描述判斷造型複雜度，只回 JSON，不要其他文字：
 {"level":"s|m|c","reason":"繁體中文15字內","tip":"繁體中文20字內"}
-s=簡約(文字奶油花) m=中等(卡通人偶多色) c=複雜(多層翻糖精細手工)`;
+s=簡約(文字奶油花抹面) m=中等(卡通人偶多色裝飾) c=複雜(多層翻糖精細手工)
+若圖片不清楚，根據描述判斷，預設 m。`;
   const content=b64
     ?[{type:'image',source:{type:'base64',media_type:mime||'image/jpeg',data:b64}},
       {type:'text',text:desc?`客人說明：${desc}`:'請分析此蛋糕造型複雜度'}]
@@ -1063,18 +1062,6 @@ async function gotoStep(n){
 async function doEstimate(){
   clearOpts();txInp.disabled=true;setProg(4);
   showTyping();addBot('好的！幫你分析中…');
-
-  if(S.pendingB64){
-    // Use actual MIME type stored from file upload
-    const ok=await verifyCake(S.pendingB64,S.imgMime);
-    if(!ok){
-      rmTyping();
-      addBot('😅 這張圖片不太像蛋糕耶！\n可以重新上傳，或直接選下面的風格？');
-      S.pendingB64=null;
-      setOpts(['簡單文字＋奶油花','卡通人偶造型','多層精緻翻糖'],true);
-      txInp.disabled=false;return;
-    }
-  }
 
   const result=await aiAnalyze(S.pendingB64,S.imgMime,S.designDesc||S.designChoice);
   rmTyping();
