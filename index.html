@@ -679,6 +679,102 @@ function fsShowCard(res){
   msgsEl.appendChild(r);sb();
 }
 
+// ── INLINE CHAT AI ENGINE ──
+const TALLY='https://tally.so/r/wvgB2l';
+const BASE={'4吋':900,'6吋':1500,'8吋':2400,'10吋以上':3800};
+const MULT={s:[1.0,1.15],m:[1.3,1.6],c:[1.8,2.4]};
+const LNAME={s:'簡約',m:'中等',c:'複雜'};
+const LDESC={s:'奶油花・文字・抹面',m:'卡通人偶・多色裝飾',c:'多層翻糖・精細手工'};
+const LDAYS={s:'3–5 天',m:'5–7 天',c:'7 天以上'};
+
+const STEPS=[
+  {label:'選場合',q:'嗨～想做什麼蛋糕呢？\n先跟我說是什麼場合吧 🎉',opts:['🎂 生日','💍 結婚紀念','👶 彌月','🥳 慶功派對','💝 情人節','📦 送禮用','其他']},
+  {label:'選尺寸',q:s=>`好的，${s}蛋糕！\n大概幾個人吃呢？`,opts:['1–2人（4吋）','3–6人（6吋）','6–10人（8吋）','10人以上（10吋以上）']},
+  {label:'選日期',q:'需要哪天拿到蛋糕呢？📅',opts:['3天內（急單）','4–7天後','一週以上','還沒確定']},
+  {label:'選造型',q:'最後一步！\n想要什麼造型風格呢？🎨\n\n可以上傳參考圖，或直接選下面',opts:['簡單文字＋奶油花','卡通人偶造型','多層精緻翻糖','還沒想好，給建議'],allowImg:true},
+];
+
+let S={step:0,occasion:null,size:null,isUrgent:false,designDesc:null,designChoice:null,pendingB64:null,imgMime:'image/jpeg',busy:false};
+let inlineLastResult=null;
+
+const msgsEl=document.getElementById('aiMsgs');
+const optsEl=document.getElementById('aiOpts');
+const txInp=document.getElementById('aiTxt');
+const progFill=document.getElementById('progFill');
+const progLabel=document.getElementById('progLabel');
+const progStepEl=document.getElementById('progStep');
+const delay=ms=>new Promise(r=>setTimeout(r,ms));
+const sb=()=>{msgsEl.scrollTop=msgsEl.scrollHeight;};
+
+function setProg(n){
+  progFill.style.width=(n/4*100)+'%';
+  progStepEl.textContent=n+' / 4';
+  progLabel.textContent=n<4?(STEPS[n]?.label||'完成'):'完成！';
+}
+function addBot(h){const r=document.createElement('div');r.className='amsg b';r.innerHTML=`<div class="a-av">M</div><div class="abub">${h.replace(/\n/g,'<br>')}</div>`;msgsEl.appendChild(r);sb();}
+function addUser(h){const r=document.createElement('div');r.className='amsg u';r.innerHTML=`<div class="abub">${h}</div>`;msgsEl.appendChild(r);sb();}
+function showTyping(){const r=document.createElement('div');r.className='amsg b';r.id='typ';r.innerHTML=`<div class="a-av">M</div><div class="abub"><div class="typing"><div class="td"></div><div class="td"></div><div class="td"></div></div></div>`;msgsEl.appendChild(r);sb();}
+function rmTyping(){const t=document.getElementById('typ');if(t)t.remove();}
+
+function clearOpts(){optsEl.innerHTML='';const old=document.getElementById('aiUploadBox');if(old)old.remove();}
+
+function setOpts(arr,allowImg=false,lineUrl=null){
+  clearOpts();
+  arr.forEach(o=>{const b=document.createElement('button');b.className='ai-opt';b.textContent=o;b.onclick=()=>onOpt(o);optsEl.appendChild(b);});
+  if(lineUrl){
+    const SVG='<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.07 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>';
+    const ln=document.createElement('a');ln.href=`https://line.me/R/msg/text/?${lineUrl}`;ln.target='_blank';ln.className='ai-opt ai-opt-line';ln.innerHTML=SVG+' 傳給闆娘';optsEl.appendChild(ln);
+    const fm=document.createElement('a');fm.href=TALLY;fm.target='_blank';fm.className='ai-opt ai-opt-form';fm.textContent='📋 填訂購表單';optsEl.appendChild(fm);
+  }
+  if(allowImg){
+    const box=document.createElement('div');box.className='ai-upload-box';box.id='aiUploadBox';
+    box.innerHTML='📷 上傳參考圖 / 色系 / 想寫的文字<br><span style="font-size:11px;opacity:.7;">系統會先給參考區間，再由闆娘確認正式價格</span>';
+    box.onclick=()=>document.getElementById('aiFile').click();
+    optsEl.after(box);
+  }
+}
+
+function buildSummary(lv,low,high){
+  return encodeURIComponent(`🍰 MooMoo Baking 蛋糕詢價\n\n📋 需求摘要\n・場合：${S.occasion||'未指定'}\n・尺寸：${S.size||'6吋'}\n・日期：${S.isUrgent?'⚡ 急單（3天內）':'一般預訂'}\n・造型：${S.designDesc||S.designChoice||'未指定'}\n・複雜度：${LNAME[lv]}（${LDESC[lv]}）\n\n💰 AI 初步估價：NT$${low.toLocaleString()}–${high.toLocaleString()}\n（參考區間，實際報價以闆娘確認為準）\n\n以上由 MooMoo AI 小助手自動整理，請協助確認報價 🙏`);
+}
+
+function showCard(res){
+  const lv=res.level,base=BASE[S.size||'6吋'],[lo,hi]=MULT[lv];
+  let low=Math.round(base*lo/100)*100,high=Math.round(base*hi/100)*100;
+  if(S.isUrgent){low=Math.round(low*1.2/100)*100;high=Math.round(high*1.2/100)*100;}
+  const r=document.createElement('div');r.className='amsg b';
+  r.innerHTML=`<div class="a-av">M</div><div class="abub"><div class="est-card">
+    <div class="est-card-title">QUICK ESTIMATE</div>
+    <div class="est-price">NT$${low.toLocaleString()}–${high.toLocaleString()}</div>
+    <div class="est-note">參考區間・實際報價由闆娘確認</div>
+    <div class="est-row"><span class="est-lbl">場合</span><span class="est-val">${S.occasion||'未指定'}</span></div>
+    <div class="est-row"><span class="est-lbl">尺寸</span><span class="est-val">${S.size||'6吋'}</span></div>
+    <div class="est-row"><span class="est-lbl">複雜度</span><span class="est-val"><span class="lv-badge ${lv}">${LNAME[lv]}</span> ${LDESC[lv]}</span></div>
+    <div class="est-row"><span class="est-lbl">製作天數</span><span class="est-val">${LDAYS[lv]}${S.isUrgent?' ⚡急單':''}</span></div>
+    <div class="est-row"><span class="est-lbl">AI判斷</span><span class="est-val">${res.reason}</span></div>
+    <div class="est-row"><span class="est-lbl">小提醒</span><span class="est-val">${res.tip}</span></div>
+  </div></div>`;
+  msgsEl.appendChild(r);sb();
+}
+
+function applyFix(field,value){
+  if(!field||!value)return false;
+  if(field==='occasion'){S.occasion=value;return true;}
+  if(field==='size'){if(value.includes('10'))S.size='10吋以上';else if(value.includes('8'))S.size='8吋';else if(value.includes('6'))S.size='6吋';else if(value.includes('4'))S.size='4吋';else S.size=value;return true;}
+  if(field==='date'){S.isUrgent=value.includes('急');return true;}
+  if(field==='design'){S.designDesc=value;S.designChoice=value;return true;}
+  return false;
+}
+
+async function gotoStep(n){
+  setProg(n);if(n>=4){await doEstimate();return;}
+  const cfg=STEPS[n];showTyping();await delay(n===0?700:500);rmTyping();
+  const q=typeof cfg.q==='function'?cfg.q(S.occasion):cfg.q;
+  addBot(q);setOpts(cfg.opts,cfg.allowImg);
+  txInp.placeholder=cfg.allowImg?'描述造型，或上傳參考圖 📷':'或直接打字回答…';
+}
+
+
 async function callClaude(messages,sys,max=300){
   try{
     const res=await fetch('https://api.anthropic.com/v1/messages',{
